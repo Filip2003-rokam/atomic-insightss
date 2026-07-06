@@ -80,6 +80,7 @@ export function ProductIntro() {
             </button>
           )}
         </div>
+        </Reveal>
         <div className="mt-3 text-xs text-brand-navy/50 text-center">
           Interactive prototype · Click through the platform
         </div>
