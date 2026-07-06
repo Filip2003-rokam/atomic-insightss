@@ -97,18 +97,13 @@ export function Hero() {
 function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
   const reduce = useReducedMotion();
 
-  const yToastRaw = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const yCallRaw = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const ySummaryRaw = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const yPendingRaw = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const yToastRaw = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const yCallRaw = useTransform(scrollYProgress, [0, 1], [0, 70]);
 
   const zero = useTransform(scrollYProgress, [0, 1], [0, 0]);
   const yToast = reduce ? zero : yToastRaw;
   const yCall = reduce ? zero : yCallRaw;
-  const ySummary = reduce ? zero : ySummaryRaw;
-  const yPending = reduce ? zero : yPendingRaw;
 
-  const floatA = reduce ? undefined : { y: [0, -8, 0] };
   const floatB = reduce ? undefined : { y: [0, -6, 0] };
   const floatC = reduce ? undefined : { y: [0, -10, 0] };
 
@@ -119,46 +114,13 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
       transition={{ duration: 0.7, delay: 0.2 }}
       className="relative"
     >
-      {/* floating summary card top-left */}
-      <motion.div
-        style={{ y: ySummary }}
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.7 }}
-        className="absolute top-16 -left-6 z-20 rounded-2xl bg-white p-4 ring-brand hidden sm:block"
-      >
-        <motion.div animate={floatA} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
-          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Total Volume</div>
-          <div className="mt-1 text-2xl font-semibold text-brand-navy">$1.6M</div>
-          <div className="mt-1 text-[11px] text-muted-foreground">1,260,489 transactions</div>
-        </motion.div>
-      </motion.div>
-
-      {/* floating pending card */}
-      <motion.div
-        style={{ y: yPending }}
-        initial={{ opacity: 0, x: 10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.9 }}
-        className="absolute bottom-16 -right-6 z-20 rounded-2xl bg-brand-navy p-4 text-white shadow-2xl shadow-brand-navy/25 hidden sm:block"
-      >
-        <motion.div animate={floatB} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}>
-          <div className="text-[10px] uppercase tracking-wider text-white/60">Pending</div>
-          <div className="mt-1 text-2xl font-semibold">$1.2M</div>
-          <div className="mt-1 flex items-center gap-1.5 text-[11px] text-white/70">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-green animate-pulse" />
-            33 pending transactions
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* Wire approved toast */}
+      {/* Wire approved toast — top right, above the laptop */}
       <motion.div
         style={{ y: yToast }}
         initial={{ opacity: 0, y: -20, x: 10 }}
         animate={{ opacity: 1, y: 0, x: 0 }}
         transition={{ duration: 0.55, delay: 1.0 }}
-        className="absolute -top-6 -right-4 xl:-right-10 z-30 hidden lg:flex items-center gap-3 rounded-2xl bg-white pl-2 pr-4 py-2 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
+        className="absolute -top-8 right-0 xl:-right-6 z-30 hidden lg:flex items-center gap-3 rounded-2xl bg-white pl-2 pr-4 py-2 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
       >
         <motion.div
           animate={floatC}
@@ -179,13 +141,13 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         </motion.div>
       </motion.div>
 
-      {/* Capital call chip */}
+      {/* Capital call chip — bottom left, below the laptop */}
       <motion.div
         style={{ y: yCall }}
         initial={{ opacity: 0, y: 20, x: -10 }}
         animate={{ opacity: 1, y: 0, x: 0 }}
         transition={{ duration: 0.55, delay: 1.25 }}
-        className="absolute -bottom-6 left-2 xl:-left-6 z-30 hidden lg:block rounded-2xl bg-white p-3.5 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
+        className="absolute -bottom-8 left-0 xl:-left-4 z-30 hidden lg:block rounded-2xl bg-white p-3.5 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
       >
         <motion.div animate={floatB} transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}>
           <div className="flex items-center gap-2">
