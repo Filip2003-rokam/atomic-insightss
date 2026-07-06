@@ -1,4 +1,4 @@
-import ohana from "@/assets/ohana.png.asset.json";
+import ohana from "@/assets/ohana-logo.svg.asset.json";
 import ieq from "@/assets/ieq.png.asset.json";
 import baker from "@/assets/baker-street.png.asset.json";
 
