@@ -236,49 +236,6 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         </motion.div>
       </motion.div>
 
-      {/* NEW: Cash yield mini-widget — right side, mid-height */}
-      <motion.div
-        style={{ y: yYield }}
-        initial={{ opacity: 0, y: -16, x: 16 }}
-        animate={{ opacity: 1, y: 0, x: 0 }}
-        transition={{ duration: 0.55, delay: 1.35 }}
-        className="absolute top-1/2 -right-10 xl:-right-20 -translate-y-1/2 z-30 hidden lg:block rounded-2xl bg-white p-4 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
-      >
-        <motion.div
-          animate={floatC}
-          transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        >
-          <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-muted-foreground">
-            <TrendingUp className="h-3 w-3 text-brand-green" />
-            Idle cash · APY
-          </div>
-          <div className="mt-1 flex items-baseline gap-1">
-            <span className="text-2xl font-semibold text-brand-navy tabular-nums">4.87</span>
-            <span className="text-sm font-medium text-brand-navy/60">%</span>
-          </div>
-          <svg viewBox="0 0 100 28" className="mt-1.5 w-32 h-7 overflow-visible">
-            <defs>
-              <linearGradient id="sparkFill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#6FBE44" stopOpacity="0.35" />
-                <stop offset="100%" stopColor="#6FBE44" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M0,22 L10,19 L20,20 L30,15 L40,17 L50,12 L60,13 L70,8 L80,10 L90,5 L100,3 L100,28 L0,28 Z"
-              fill="url(#sparkFill)"
-            />
-            <polyline
-              points="0,22 10,19 20,20 30,15 40,17 50,12 60,13 70,8 80,10 90,5 100,3"
-              fill="none"
-              stroke="#6FBE44"
-              strokeWidth="1.75"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <div className="mt-1 text-[10px] text-brand-navy/50">Swept · last 30d</div>
-        </motion.div>
-      </motion.div>
 
       <div className="relative rounded-2xl bg-white border border-border shadow-2xl shadow-brand-navy/10 overflow-hidden">
         {/* window chrome */}
