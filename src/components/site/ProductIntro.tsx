@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
+import { Reveal } from "./Reveal";
+
 
 const FIGMA_SRC =
   "https://embed.figma.com/proto/NBW9OZH3SUEF0ClgLPPXpD/Web-App-Prototype?content-scaling=fixed&kind=proto&node-id=2033-106124&scaling=scale-down-width&starting-point-node-id=2033%3A106124&embed-host=share";
