@@ -93,6 +93,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Atomic Insights · Money movement for RIAs and family offices" },
+      { name: "description", content: "One platform for wires, capital calls, bill pay, cash management, and reconciliation, connected directly to your custodians, with every control intact." },
+      { property: "og:description", content: "One platform for wires, capital calls, bill pay, cash management, and reconciliation, connected directly to your custodians, with every control intact." },
+      { name: "twitter:description", content: "One platform for wires, capital calls, bill pay, cash management, and reconciliation, connected directly to your custodians, with every control intact." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a3e3e827-112c-4dd9-a9f1-256857910582/id-preview-8e7358f8--f09b0a67-afef-41f9-af35-84b7fd24f503.lovable.app-1783340220064.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a3e3e827-112c-4dd9-a9f1-256857910582/id-preview-8e7358f8--f09b0a67-afef-41f9-af35-84b7fd24f503.lovable.app-1783340220064.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
