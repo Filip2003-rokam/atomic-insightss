@@ -29,7 +29,7 @@ export function ProductIntro() {
   return (
     <section id="demo" className="py-24 lg:py-32 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="max-w-3xl">
+        <Reveal className="max-w-3xl">
           <div className="text-xs uppercase tracking-[0.2em] text-brand-blue font-medium">
             What is Atomic Insights?
           </div>
@@ -43,8 +43,9 @@ export function ProductIntro() {
             Manual work is eliminated while oversight is strengthened, leaving zero room for human
             error.
           </p>
-        </div>
+        </Reveal>
 
+        <Reveal delay={0.15}>
         <div
           ref={holderRef}
           className="mt-14 mx-auto w-full max-w-7xl relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-brand-navy/[0.03] shadow-xl shadow-brand-navy/10 aspect-[16/9]"
