@@ -75,12 +75,12 @@ export function Hero() {
               >
                 Book a demo <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link
-                to="/"
+              <a
+                href="#demo"
                 className="inline-flex items-center gap-2 rounded-full border border-brand-navy/15 bg-white px-5 py-3 text-sm font-medium text-brand-navy hover:bg-surface transition-colors"
               >
                 See the platform
-              </Link>
+              </a>
             </motion.div>
 
             <div className="mt-8 flex items-center gap-6 text-xs text-brand-navy/60">
