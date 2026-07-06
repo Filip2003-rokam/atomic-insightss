@@ -190,6 +190,7 @@ function HeroDashboard() {
                 </motion.div>
               ))}
             </div>
+           </div>
           </div>
         </div>
       </div>
