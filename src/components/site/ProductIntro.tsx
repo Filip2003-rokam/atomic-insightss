@@ -45,7 +45,7 @@ export function ProductIntro() {
 
         <div
           ref={holderRef}
-          className="mt-14 mx-auto w-full max-w-4xl relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-brand-navy/[0.03] shadow-xl shadow-brand-navy/10 aspect-[16/10]"
+          className="mt-14 mx-auto w-full max-w-7xl relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-brand-navy/[0.03] shadow-xl shadow-brand-navy/10 aspect-[16/9]"
         >
           {loaded ? (
             <iframe
