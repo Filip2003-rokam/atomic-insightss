@@ -143,20 +143,20 @@ function HeroDashboard() {
           <div className="ml-4 text-[11px] text-muted-foreground">Atomic Capital Advisory · Payment Requests</div>
         </div>
 
-        <div className="p-5">
-          <div className="flex items-center justify-between mb-4">
-            <div>
+        <div className="p-4 sm:p-5">
+          <div className="flex items-start sm:items-center justify-between mb-4 gap-3 flex-wrap">
+            <div className="min-w-0">
               <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Payment Requests</div>
               <div className="mt-1 text-sm font-medium text-brand-navy">Awaiting review · In process · Completed</div>
             </div>
-            <div className="flex items-center gap-4 text-xs">
+            <div className="flex items-center gap-4 text-xs shrink-0">
               <Stat label="Review" value="2" />
               <Stat label="In Process" value="8" tone="warn" />
-              <Stat label="Completed" value="—" tone="ok" />
+              <Stat label="Completed" value="-" tone="ok" />
             </div>
           </div>
 
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl border border-border overflow-x-auto">
             <div className="grid grid-cols-[46px_1fr_90px_100px_1fr_100px_92px] gap-2 px-3 py-2 bg-surface text-[10px] uppercase tracking-wider text-muted-foreground">
               <div>Date</div>
               <div>From account</div>
