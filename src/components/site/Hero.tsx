@@ -207,28 +207,6 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         </motion.div>
       </motion.div>
 
-      {/* NEW: Custodian connected pill — top left, further out */}
-      <motion.div
-        style={{ y: yCustodian }}
-        initial={{ opacity: 0, y: -12, x: -12 }}
-        animate={{ opacity: 1, y: 0, x: 0 }}
-        transition={{ duration: 0.5, delay: 1.15 }}
-        className="absolute -top-12 left-24 z-30 hidden lg:block rounded-full bg-white px-4 py-2 shadow-xl shadow-brand-navy/10 ring-1 ring-brand-navy/5"
-      >
-        <motion.div
-          animate={floatA}
-          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-          className="flex items-center gap-2.5 text-[12px] font-medium text-brand-navy"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-green opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-green" />
-          </span>
-          Schwab · Live
-          <span className="text-brand-navy/30">·</span>
-          <span className="text-brand-navy/60">Fidelity · Live</span>
-        </motion.div>
-      </motion.div>
 
       {/* NEW: Capital call chip — bottom left, spilling below */}
       <motion.div
