@@ -47,7 +47,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
-              className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-brand-navy tracking-tight"
+              className="mt-5 text-[2rem] sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-brand-navy tracking-tight"
             >
               More clients, more wires, more capital calls.{" "}
               <span className="brand-gradient-text">One platform to run them.</span>
