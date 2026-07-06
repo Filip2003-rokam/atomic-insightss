@@ -72,7 +72,7 @@ export function ProductIntro() {
                 Launch interactive demo
               </span>
               <span className="text-xs text-brand-navy/60">
-                Click to load the Figma prototype
+                Click to load the prototype
               </span>
             </button>
           )}
