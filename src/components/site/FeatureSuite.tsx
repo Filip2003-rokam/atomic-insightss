@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Zap, Layers, Receipt, LineChart, FileCheck } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Zap, Layers, Receipt, LineChart, FileCheck, Check, TrendingUp } from "lucide-react";
 import type { ReactNode } from "react";
 import { Reveal } from "./Reveal";
 
@@ -12,7 +13,139 @@ type Feature = {
   bullets: string[];
   icon: ReactNode;
   visual: ReactNode;
+  floater: ReactNode;
 };
+
+/* ---------------- floaters (defined below the features array) ---------------- */
+
+function FloatWrap({
+  children,
+  className,
+  duration = 5,
+  delay = 0,
+}: {
+  children: ReactNode;
+  className: string;
+  duration?: number;
+  delay?: number;
+}) {
+  return (
+    <div className={`absolute z-20 hidden lg:block ${className}`}>
+      <motion.div
+        initial={{ opacity: 0, y: 12, scale: 0.96 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <motion.div
+          animate={{ y: [0, -7, 0] }}
+          transition={{ duration, delay, repeat: Infinity, ease: "easeInOut" }}
+          className="rounded-2xl bg-white shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
+        >
+          {children}
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+
+function WireFloater() {
+  return (
+    <FloatWrap className="-top-6 -right-6 xl:-right-10" duration={4.5}>
+      <div className="flex items-center gap-3 pl-2 pr-4 py-2">
+        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand-green/15 text-brand-green">
+          <Check className="h-4 w-4" strokeWidth={3} />
+        </span>
+        <div>
+          <div className="text-[12px] font-semibold text-brand-navy leading-tight">
+            Wire executed · $75K
+          </div>
+          <div className="text-[10px] text-brand-navy/55 mt-0.5">
+            Fidelity → Acme LP · 3s
+          </div>
+        </div>
+      </div>
+    </FloatWrap>
+  );
+}
+
+function CapCallFloater() {
+  return (
+    <FloatWrap className="-bottom-8 -left-6 xl:-left-10" duration={5.2} delay={0.4}>
+      <div className="px-4 py-3 min-w-[180px]">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-wider">
+          <span className="text-brand-blue font-semibold">Bulk call</span>
+          <span className="text-brand-green font-semibold">Done · 12s</span>
+        </div>
+        <div className="mt-1.5 text-sm font-semibold text-brand-navy tabular-nums">
+          87 / 87 wires
+        </div>
+        <div className="mt-2 h-1.5 rounded-full bg-brand-navy/10 overflow-hidden">
+          <div className="h-full w-full bg-gradient-to-r from-brand-blue to-brand-green" />
+        </div>
+      </div>
+    </FloatWrap>
+  );
+}
+
+function BillPayFloater() {
+  return (
+    <FloatWrap className="-top-6 -right-6 xl:-right-10" duration={4.8} delay={0.2}>
+      <div className="px-4 py-3">
+        <div className="flex items-center gap-2">
+          <span className="text-[9px] uppercase tracking-[0.18em] text-brand-blue font-semibold">
+            IRS Q3
+          </span>
+          <span className="inline-flex items-center gap-1 rounded-md bg-brand-green/10 px-1.5 py-0.5 text-[10px] font-medium text-brand-green">
+            <Check className="h-3 w-3" strokeWidth={3} /> Paid
+          </span>
+        </div>
+        <div className="mt-1 text-lg font-semibold text-brand-navy tabular-nums">
+          $112,000
+        </div>
+        <div className="text-[10px] text-brand-navy/50 mt-0.5">1 click · scheduled</div>
+      </div>
+    </FloatWrap>
+  );
+}
+
+function CashFloater() {
+  return (
+    <FloatWrap className="-top-6 -right-6 xl:-right-10" duration={5.5} delay={0.3}>
+      <div className="px-4 py-3">
+        <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-muted-foreground">
+          <TrendingUp className="h-3 w-3 text-brand-green" />
+          Yield YTD
+        </div>
+        <div className="mt-1 flex items-baseline gap-1">
+          <span className="text-brand-green text-sm font-semibold">+</span>
+          <span className="text-2xl font-semibold text-brand-navy tabular-nums">$2.1M</span>
+        </div>
+        <div className="text-[10px] text-brand-navy/50 mt-0.5">Idle cash swept</div>
+      </div>
+    </FloatWrap>
+  );
+}
+
+function ReconFloater() {
+  return (
+    <FloatWrap className="-bottom-8 -right-6 xl:-right-10" duration={4.6} delay={0.5}>
+      <div className="flex items-center gap-3 pl-2 pr-4 py-2">
+        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand-green/15 text-brand-green">
+          <Check className="h-4 w-4" strokeWidth={3} />
+        </span>
+        <div>
+          <div className="text-[12px] font-semibold text-brand-navy leading-tight">
+            100% reconciled
+          </div>
+          <div className="text-[10px] text-brand-navy/55 mt-0.5">
+            Salesforce ↔ Addepar
+          </div>
+        </div>
+      </div>
+    </FloatWrap>
+  );
+}
 
 const features: Feature[] = [
   {
@@ -23,6 +156,7 @@ const features: Feature[] = [
     bullets: ["Real-time custodian APIs", "Maker-checker approvals", "Validation on every request"],
     icon: <Zap className="h-4 w-4" />,
     visual: <WireVisual />,
+    floater: <WireFloater />,
   },
   {
     eyebrow: "Alts & Private Investments",
@@ -32,6 +166,7 @@ const features: Feature[] = [
     bullets: ["Bulk capital call workflow", "Canoe, Arch, iCapital integrations", "Cross-entity allocation"],
     icon: <Layers className="h-4 w-4" />,
     visual: <CapitalCallVisual />,
+    floater: <CapCallFloater />,
   },
   {
     eyebrow: "Comprehensive Bill Pay",
@@ -41,6 +176,7 @@ const features: Feature[] = [
     bullets: ["Vendor & biller management", "Invoice capture", "Full audit trail on every payment"],
     icon: <Receipt className="h-4 w-4" />,
     visual: <BillPayVisual />,
+    floater: <BillPayFloater />,
   },
   {
     eyebrow: "Cash Management",
@@ -50,6 +186,7 @@ const features: Feature[] = [
     bullets: ["Multi-account visibility", "Sweep rules & scheduled transfers", "Higher-yield management"],
     icon: <LineChart className="h-4 w-4" />,
     visual: <CashVisual />,
+    floater: <CashFloater />,
   },
   {
     eyebrow: "Reporting & Reconciliation",
@@ -59,6 +196,7 @@ const features: Feature[] = [
     bullets: ["Salesforce CRM sync", "Transaction-level audit trail", "Client-ready cashflow reporting"],
     icon: <FileCheck className="h-4 w-4" />,
     visual: <ReconVisual />,
+    floater: <ReconFloater />,
   },
 ];
 
@@ -120,8 +258,11 @@ function FeatureRow({ feature, reverse }: { feature: Feature; reverse: boolean }
       </Reveal>
 
       <Reveal className={reverse ? "lg:order-1" : ""} delay={0.1} y={24}>
-        <div className="relative rounded-2xl bg-white border border-border shadow-xl shadow-brand-navy/5 overflow-hidden aspect-[4/3]">
-          {feature.visual}
+        <div className="relative">
+          <div className="relative rounded-2xl bg-white border border-border shadow-xl shadow-brand-navy/5 overflow-hidden aspect-[4/3]">
+            {feature.visual}
+          </div>
+          {feature.floater}
         </div>
       </Reveal>
     </div>

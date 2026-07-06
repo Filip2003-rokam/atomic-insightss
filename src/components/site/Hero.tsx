@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, type MotionValue } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Circle, TrendingUp } from "lucide-react";
+import { ArrowRight, Check, Circle } from "lucide-react";
 import mark from "@/assets/atomic-mark.svg.asset.json";
 
 const rows = [
@@ -115,17 +115,13 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
   // Parallax: each element moves at a different speed as the hero scrolls.
   // Different signs/magnitudes create depth.
   const yToastRaw = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const yCustodianRaw = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const yCallRaw = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const yYieldRaw = useTransform(scrollYProgress, [0, 1], [0, -160]);
   const ySummaryRaw = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const yPendingRaw = useTransform(scrollYProgress, [0, 1], [0, 90]);
 
   const zero = useTransform(scrollYProgress, [0, 1], [0, 0]);
   const yToast = reduce ? zero : yToastRaw;
-  const yCustodian = reduce ? zero : yCustodianRaw;
   const yCall = reduce ? zero : yCallRaw;
-  const yYield = reduce ? zero : yYieldRaw;
   const ySummary = reduce ? zero : ySummaryRaw;
   const yPending = reduce ? zero : yPendingRaw;
 
@@ -207,28 +203,6 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         </motion.div>
       </motion.div>
 
-      {/* NEW: Custodian connected pill — top left, further out */}
-      <motion.div
-        style={{ y: yCustodian }}
-        initial={{ opacity: 0, y: -12, x: -12 }}
-        animate={{ opacity: 1, y: 0, x: 0 }}
-        transition={{ duration: 0.5, delay: 1.15 }}
-        className="absolute -top-12 left-24 z-30 hidden lg:block rounded-full bg-white px-4 py-2 shadow-xl shadow-brand-navy/10 ring-1 ring-brand-navy/5"
-      >
-        <motion.div
-          animate={floatA}
-          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-          className="flex items-center gap-2.5 text-[12px] font-medium text-brand-navy"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-green opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-green" />
-          </span>
-          Schwab · Live
-          <span className="text-brand-navy/30">·</span>
-          <span className="text-brand-navy/60">Fidelity · Live</span>
-        </motion.div>
-      </motion.div>
 
       {/* NEW: Capital call chip — bottom left, spilling below */}
       <motion.div
@@ -258,49 +232,6 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         </motion.div>
       </motion.div>
 
-      {/* NEW: Cash yield mini-widget — right side, mid-height */}
-      <motion.div
-        style={{ y: yYield }}
-        initial={{ opacity: 0, y: -16, x: 16 }}
-        animate={{ opacity: 1, y: 0, x: 0 }}
-        transition={{ duration: 0.55, delay: 1.35 }}
-        className="absolute top-1/2 -right-10 xl:-right-20 -translate-y-1/2 z-30 hidden lg:block rounded-2xl bg-white p-4 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
-      >
-        <motion.div
-          animate={floatC}
-          transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        >
-          <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-muted-foreground">
-            <TrendingUp className="h-3 w-3 text-brand-green" />
-            Idle cash · APY
-          </div>
-          <div className="mt-1 flex items-baseline gap-1">
-            <span className="text-2xl font-semibold text-brand-navy tabular-nums">4.87</span>
-            <span className="text-sm font-medium text-brand-navy/60">%</span>
-          </div>
-          <svg viewBox="0 0 100 28" className="mt-1.5 w-32 h-7 overflow-visible">
-            <defs>
-              <linearGradient id="sparkFill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#6FBE44" stopOpacity="0.35" />
-                <stop offset="100%" stopColor="#6FBE44" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M0,22 L10,19 L20,20 L30,15 L40,17 L50,12 L60,13 L70,8 L80,10 L90,5 L100,3 L100,28 L0,28 Z"
-              fill="url(#sparkFill)"
-            />
-            <polyline
-              points="0,22 10,19 20,20 30,15 40,17 50,12 60,13 70,8 80,10 90,5 100,3"
-              fill="none"
-              stroke="#6FBE44"
-              strokeWidth="1.75"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <div className="mt-1 text-[10px] text-brand-navy/50">Swept · last 30d</div>
-        </motion.div>
-      </motion.div>
 
       <div className="relative rounded-2xl bg-white border border-border shadow-2xl shadow-brand-navy/10 overflow-hidden">
         {/* window chrome */}
