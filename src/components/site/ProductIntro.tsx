@@ -1,8 +1,6 @@
-import { PlayCircle } from "lucide-react";
-
 export function ProductIntro() {
   return (
-    <section className="py-24 lg:py-32">
+    <section id="demo" className="py-24 lg:py-32 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="max-w-3xl">
           <div className="text-xs uppercase tracking-[0.2em] text-brand-blue font-medium">
@@ -20,34 +18,17 @@ export function ProductIntro() {
           </p>
         </div>
 
-        <div className="mt-14 relative rounded-3xl overflow-hidden border border-border bg-gradient-to-br from-surface-alt via-white to-surface aspect-[16/9] group cursor-pointer">
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-40"
-            style={{
-              backgroundImage:
-                "radial-gradient(600px 260px at 30% 30%, rgba(47,128,194,0.15), transparent 60%), radial-gradient(600px 260px at 80% 70%, rgba(111,190,68,0.12), transparent 60%)",
-            }}
+        <div className="mt-14 relative rounded-3xl overflow-hidden border border-brand-navy/10 bg-white shadow-2xl shadow-brand-navy/10 aspect-[16/9]">
+          <iframe
+            title="Atomic Insights — clickable product demo"
+            src="https://embed.figma.com/proto/NBW9OZH3SUEF0ClgLPPXpD/Web-App-Prototype?content-scaling=fixed&kind=proto&node-id=2033-106124&scaling=scale-down-width&starting-point-node-id=2033%3A106124&embed-host=share"
+            className="absolute inset-0 h-full w-full"
+            allowFullScreen
+            loading="lazy"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-center px-6">
-            <div className="rounded-full bg-white/80 backdrop-blur-md border border-border p-4 shadow-xl shadow-brand-navy/10 group-hover:scale-110 transition-transform">
-              <PlayCircle className="h-10 w-10 text-brand-navy" />
-            </div>
-            <div>
-              <div className="text-sm font-medium text-brand-navy">Guided product tour</div>
-              <div className="text-xs text-muted-foreground mt-1">3-minute walkthrough · Coming soon</div>
-            </div>
-          </div>
-
-          {/* dot pattern */}
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-[0.15]"
-            style={{
-              backgroundImage: "radial-gradient(circle, #19284A 1px, transparent 1px)",
-              backgroundSize: "24px 24px",
-            }}
-          />
+        </div>
+        <div className="mt-3 text-xs text-brand-navy/50 text-center">
+          Interactive prototype · Click through the platform
         </div>
       </div>
     </section>
