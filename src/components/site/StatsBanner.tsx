@@ -1,3 +1,5 @@
+import { Reveal } from "./Reveal";
+
 const stats = [
   { value: "$120B", label: "Assets on platform" },
   { value: "Fidelity + Schwab", label: "Live custodian API access" },
@@ -11,8 +13,9 @@ export function StatsBanner() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
           {stats.map((s, i) => (
-            <div
+            <Reveal
               key={s.label}
+              delay={i * 0.08}
               className={`text-center lg:text-left ${i > 0 ? "lg:border-l lg:border-border lg:pl-8" : ""}`}
             >
               <div className="text-2xl sm:text-3xl font-semibold text-brand-navy tracking-tight">
@@ -21,7 +24,7 @@ export function StatsBanner() {
               <div className="mt-1.5 text-xs uppercase tracking-[0.15em] text-muted-foreground">
                 {s.label}
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { Reveal } from "./Reveal";
+
 
 export function FinalCTA() {
   return (
@@ -12,7 +14,7 @@ export function FinalCTA() {
             "radial-gradient(700px 400px at 15% 20%, rgba(111,190,68,0.35), transparent 60%), radial-gradient(700px 400px at 85% 80%, rgba(47,128,194,0.45), transparent 60%)",
         }}
       />
-      <div className="relative mx-auto max-w-4xl px-4 sm:px-6 text-center">
+      <Reveal className="relative mx-auto max-w-4xl px-4 sm:px-6 text-center">
         <div className="text-xs uppercase tracking-[0.2em] text-brand-green font-medium">
           Get started
         </div>
@@ -36,7 +38,7 @@ export function FinalCTA() {
             Talk to our team
           </Link>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
