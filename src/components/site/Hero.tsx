@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, type MotionValue } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Circle, TrendingUp } from "lucide-react";
+import { ArrowRight, Check, Circle } from "lucide-react";
 import mark from "@/assets/atomic-mark.svg.asset.json";
 
 const rows = [
