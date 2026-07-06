@@ -157,6 +157,7 @@ function HeroDashboard() {
           </div>
 
           <div className="rounded-xl border border-border overflow-x-auto">
+           <div className="min-w-[620px]">
             <div className="grid grid-cols-[46px_1fr_90px_100px_1fr_100px_92px] gap-2 px-3 py-2 bg-surface text-[10px] uppercase tracking-wider text-muted-foreground">
               <div>Date</div>
               <div>From account</div>
