@@ -120,12 +120,12 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         initial={{ opacity: 0, y: -20, x: 10 }}
         animate={{ opacity: 1, y: 0, x: 0 }}
         transition={{ duration: 0.55, delay: 1.0 }}
-        className="absolute -top-8 right-0 xl:-right-6 z-30 hidden lg:flex items-center gap-3 rounded-2xl bg-white pl-2 pr-4 py-2 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
+        className="absolute -top-8 right-0 xl:-right-6 z-30 hidden lg:block"
       >
         <motion.div
           animate={floatC}
           transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-          className="flex items-center gap-3"
+          className="flex items-center gap-3 rounded-2xl bg-white pl-2 pr-4 py-2 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
         >
           <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-green/15 text-brand-green">
             <Check className="h-5 w-5" strokeWidth={3} />
@@ -147,9 +147,13 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         initial={{ opacity: 0, y: 20, x: -10 }}
         animate={{ opacity: 1, y: 0, x: 0 }}
         transition={{ duration: 0.55, delay: 1.25 }}
-        className="absolute -bottom-8 left-0 xl:-left-4 z-30 hidden lg:block rounded-2xl bg-white p-3.5 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
+        className="absolute -bottom-8 left-0 xl:-left-4 z-30 hidden lg:block"
       >
-        <motion.div animate={floatB} transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}>
+        <motion.div
+          animate={floatB}
+          transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+          className="rounded-2xl bg-white p-3.5 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
+        >
           <div className="flex items-center gap-2">
             <span className="text-[9px] uppercase tracking-[0.18em] text-brand-blue font-semibold">
               Capital Call
