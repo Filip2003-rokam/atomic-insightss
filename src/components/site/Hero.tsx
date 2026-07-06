@@ -19,7 +19,7 @@ const statusClasses: Record<string, string> = {
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[90vh] flex-col overflow-hidden bg-white">
+    <section className="relative flex min-h-[auto] lg:min-h-[90vh] flex-col overflow-hidden bg-white">
       {/* soft gradient stage */}
       <div
         aria-hidden
