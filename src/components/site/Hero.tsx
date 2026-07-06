@@ -115,17 +115,13 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
   // Parallax: each element moves at a different speed as the hero scrolls.
   // Different signs/magnitudes create depth.
   const yToastRaw = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const yCustodianRaw = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const yCallRaw = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const yYieldRaw = useTransform(scrollYProgress, [0, 1], [0, -160]);
   const ySummaryRaw = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const yPendingRaw = useTransform(scrollYProgress, [0, 1], [0, 90]);
 
   const zero = useTransform(scrollYProgress, [0, 1], [0, 0]);
   const yToast = reduce ? zero : yToastRaw;
-  const yCustodian = reduce ? zero : yCustodianRaw;
   const yCall = reduce ? zero : yCallRaw;
-  const yYield = reduce ? zero : yYieldRaw;
   const ySummary = reduce ? zero : ySummaryRaw;
   const yPending = reduce ? zero : yPendingRaw;
 
