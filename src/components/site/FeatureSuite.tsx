@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Zap, Layers, Receipt, LineChart, FileCheck } from "lucide-react";
 import type { ReactNode } from "react";
+import { Reveal } from "./Reveal";
+
 
 type Feature = {
   eyebrow: string;
@@ -64,7 +66,7 @@ export function FeatureSuite() {
   return (
     <section className="bg-surface border-y border-border py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="max-w-3xl">
+        <Reveal className="max-w-3xl">
           <div className="text-xs uppercase tracking-[0.2em] text-brand-blue font-medium">
             The Atomic Suite
           </div>
@@ -74,7 +76,7 @@ export function FeatureSuite() {
           <p className="mt-5 text-lg text-brand-navy/70 leading-relaxed">
             From capital call to wire confirmation. No re-keying, no portal hopping, no spreadsheets.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-20 space-y-24 lg:space-y-32">
           {features.map((f, i) => (
@@ -89,7 +91,7 @@ export function FeatureSuite() {
 function FeatureRow({ feature, reverse }: { feature: Feature; reverse: boolean }) {
   return (
     <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-      <div className={reverse ? "lg:order-2" : ""}>
+      <Reveal className={reverse ? "lg:order-2" : ""} y={24}>
         <div className="inline-flex items-center gap-2 rounded-full border border-brand-navy/10 bg-white px-3 py-1 text-xs font-medium text-brand-navy">
           <span className="text-brand-blue">{feature.icon}</span>
           {feature.eyebrow}
@@ -115,13 +117,13 @@ function FeatureRow({ feature, reverse }: { feature: Feature; reverse: boolean }
           Learn more
           <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
         </Link>
-      </div>
+      </Reveal>
 
-      <div className={reverse ? "lg:order-1" : ""}>
+      <Reveal className={reverse ? "lg:order-1" : ""} delay={0.1} y={24}>
         <div className="relative rounded-2xl bg-white border border-border shadow-xl shadow-brand-navy/5 overflow-hidden aspect-[4/3]">
           {feature.visual}
         </div>
-      </div>
+      </Reveal>
     </div>
   );
 }
