@@ -19,7 +19,7 @@ const statusClasses: Record<string, string> = {
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[90vh] flex-col overflow-hidden bg-white">
+    <section className="relative flex min-h-[auto] lg:min-h-[90vh] flex-col overflow-hidden bg-white">
       {/* soft gradient stage */}
       <div
         aria-hidden
@@ -30,8 +30,8 @@ export function Hero() {
         }}
       />
 
-      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full">
+      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-12 items-center w-full">
           <div className="lg:col-span-6">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -47,7 +47,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
-              className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-brand-navy tracking-tight"
+              className="mt-5 text-[2rem] sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-brand-navy tracking-tight"
             >
               More clients, more wires, more capital calls.{" "}
               <span className="brand-gradient-text">One platform to run them.</span>
@@ -57,7 +57,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="mt-6 text-lg text-brand-navy/70 max-w-xl leading-relaxed"
+              className="mt-6 text-base sm:text-lg text-brand-navy/70 max-w-xl leading-relaxed"
             >
               At most RIAs and family offices, money movement is still manual. Atomic runs it
               end-to-end with every control intact. Faster, more accurate, and idle cash put to work.
@@ -83,14 +83,14 @@ export function Hero() {
               </a>
             </motion.div>
 
-            <div className="mt-8 flex items-center gap-6 text-xs text-brand-navy/60">
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-brand-navy/60">
               <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> SOC 2 Type II</span>
               <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> Direct custodian APIs</span>
               <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> Maker-checker approvals</span>
             </div>
           </div>
 
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-6 min-w-0">
             <HeroDashboard />
           </div>
         </div>
@@ -143,20 +143,21 @@ function HeroDashboard() {
           <div className="ml-4 text-[11px] text-muted-foreground">Atomic Capital Advisory · Payment Requests</div>
         </div>
 
-        <div className="p-5">
-          <div className="flex items-center justify-between mb-4">
-            <div>
+        <div className="p-4 sm:p-5">
+          <div className="flex items-start sm:items-center justify-between mb-4 gap-3 flex-wrap">
+            <div className="min-w-0">
               <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Payment Requests</div>
               <div className="mt-1 text-sm font-medium text-brand-navy">Awaiting review · In process · Completed</div>
             </div>
-            <div className="flex items-center gap-4 text-xs">
+            <div className="flex items-center gap-4 text-xs shrink-0">
               <Stat label="Review" value="2" />
               <Stat label="In Process" value="8" tone="warn" />
-              <Stat label="Completed" value="—" tone="ok" />
+              <Stat label="Completed" value="-" tone="ok" />
             </div>
           </div>
 
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl border border-border overflow-x-auto">
+           <div className="min-w-[620px]">
             <div className="grid grid-cols-[46px_1fr_90px_100px_1fr_100px_92px] gap-2 px-3 py-2 bg-surface text-[10px] uppercase tracking-wider text-muted-foreground">
               <div>Date</div>
               <div>From account</div>
@@ -189,6 +190,7 @@ function HeroDashboard() {
                 </motion.div>
               ))}
             </div>
+           </div>
           </div>
         </div>
       </div>
