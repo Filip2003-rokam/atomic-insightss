@@ -12,7 +12,7 @@ export function ProductIntro() {
           <p className="mt-6 text-lg text-brand-navy/70 leading-relaxed">
             Atomic Insights brings money movement into a single system for RIAs and family offices.
             Move funds, process capital calls at scale, keep cash working, and reconcile every
-            transaction — connected directly to your custodians, with the controls your firm runs on.
+            transaction, connected directly to your custodians, with the controls your firm runs on.
             Manual work is eliminated while oversight is strengthened, leaving zero room for human
             error.
           </p>
@@ -20,7 +20,7 @@ export function ProductIntro() {
 
         <div className="mt-14 relative rounded-3xl overflow-hidden border border-brand-navy/10 bg-white shadow-2xl shadow-brand-navy/10 aspect-[16/9]">
           <iframe
-            title="Atomic Insights — clickable product demo"
+            title="Atomic Insights clickable product demo"
             src="https://embed.figma.com/proto/NBW9OZH3SUEF0ClgLPPXpD/Web-App-Prototype?content-scaling=fixed&kind=proto&node-id=2033-106124&scaling=scale-down-width&starting-point-node-id=2033%3A106124&embed-host=share"
             className="absolute inset-0 h-full w-full"
             allowFullScreen

@@ -78,14 +78,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Atomic Insights — Money movement for RIAs and family offices" },
+      { title: "Atomic Insights · Money movement for RIAs and family offices" },
       {
         name: "description",
         content:
-          "One platform for wires, capital calls, bill pay, cash management, and reconciliation — connected directly to your custodians, with every control intact.",
+          "One platform for wires, capital calls, bill pay, cash management, and reconciliation, connected directly to your custodians, with every control intact.",
       },
       { name: "author", content: "Atomic Insights" },
-      { property: "og:title", content: "Atomic Insights — Money movement for RIAs and family offices" },
+      { property: "og:title", content: "Atomic Insights · Money movement for RIAs and family offices" },
       {
         property: "og:description",
         content:

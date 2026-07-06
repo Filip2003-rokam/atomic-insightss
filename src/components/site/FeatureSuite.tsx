@@ -34,7 +34,7 @@ const features: Feature[] = [
   {
     eyebrow: "Comprehensive Bill Pay",
     title: "Every client payment, one platform.",
-    promise: "Centralize every client payment — vendors, tuition, taxes — in one platform.",
+    promise: "Centralize every client payment (vendors, tuition, taxes) in one platform.",
     differentiator: "Purpose-built for the family-CFO model, not generic AP.",
     bullets: ["Vendor & biller management", "Invoice capture", "Full audit trail on every payment"],
     icon: <Receipt className="h-4 w-4" />,
