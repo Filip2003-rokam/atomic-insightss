@@ -57,7 +57,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="mt-6 text-lg text-brand-navy/70 max-w-xl leading-relaxed"
+              className="mt-6 text-base sm:text-lg text-brand-navy/70 max-w-xl leading-relaxed"
             >
               At most RIAs and family offices, money movement is still manual. Atomic runs it
               end-to-end with every control intact. Faster, more accurate, and idle cash put to work.
