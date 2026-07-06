@@ -19,19 +19,19 @@ const statusClasses: Record<string, string> = {
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative flex min-h-[90vh] flex-col overflow-hidden bg-white">
       {/* soft gradient stage */}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-[680px] -z-0"
+        className="absolute inset-x-0 top-0 h-full -z-0"
         style={{
           background:
             "radial-gradient(1200px 500px at 20% 0%, rgba(111,190,68,0.12), transparent 60%), radial-gradient(900px 500px at 85% 0%, rgba(47,128,194,0.15), transparent 60%), linear-gradient(180deg, #F5F9FC 0%, #FFFFFF 100%)",
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-16 lg:pt-24 pb-20 lg:pb-28">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-16 lg:py-24">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full">
           <div className="lg:col-span-6">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
