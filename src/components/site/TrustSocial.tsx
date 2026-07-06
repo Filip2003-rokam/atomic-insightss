@@ -50,13 +50,13 @@ export function TrustSocial() {
           </h2>
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-center gap-x-24 sm:gap-x-32 lg:gap-x-40 gap-y-10">
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-x-12 sm:gap-x-24 md:gap-x-32 lg:gap-x-40 gap-y-8 sm:gap-y-10">
           {logos.map((l) => (
             <img
               key={l.name}
               src={l.url}
               alt={l.name}
-              className="h-16 sm:h-20 lg:h-24 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+              className="h-12 sm:h-20 lg:h-24 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
             />
           ))}
         </div>
