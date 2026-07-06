@@ -30,8 +30,8 @@ export function Hero() {
         }}
       />
 
-      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full">
+      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-12 items-center w-full">
           <div className="lg:col-span-6">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
