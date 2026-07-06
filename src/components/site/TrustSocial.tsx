@@ -25,7 +25,7 @@ const testimonials = [
   },
   {
     quote:
-      "We process capital calls at a volume most firms never see. Instead of hundreds of individual wires, Atomic lets us do a bulk submission per fund — that's the efficiency we need to hit deadlines and raise cash on time.",
+      "We process capital calls at a volume most firms never see. Instead of hundreds of individual wires, Atomic lets us do a bulk submission per fund. That's the efficiency we need to hit deadlines and raise cash on time.",
     name: "Jamal DeAllie",
     role: "Associate Director, IEQ Capital",
   },
@@ -50,13 +50,13 @@ export function TrustSocial() {
           </h2>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-16 gap-y-8">
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-x-24 sm:gap-x-32 lg:gap-x-40 gap-y-10">
           {logos.map((l) => (
             <img
               key={l.name}
               src={l.url}
               alt={l.name}
-              className="h-10 sm:h-11 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+              className="h-16 sm:h-20 lg:h-24 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
             />
           ))}
         </div>
