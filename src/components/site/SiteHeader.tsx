@@ -51,10 +51,11 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 w-full">
       {showBar && (
         <div className="bg-brand-navy-deep text-white text-xs">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2 flex items-center justify-center gap-3 relative">
-            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-brand-green" />
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2 pr-9 flex items-center justify-center gap-2 sm:gap-3 relative flex-wrap text-center">
+            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-brand-green shrink-0" />
             <span className="opacity-90">
-              New: bulk capital-call workflow now live for Fidelity & Schwab custodians.
+              <span className="hidden sm:inline">New: bulk capital-call workflow now live for Fidelity & Schwab custodians.</span>
+              <span className="sm:hidden">New: bulk capital-call workflow live.</span>
             </span>
             <Link to="/" className="underline decoration-white/40 hover:decoration-white">
               Read more →
