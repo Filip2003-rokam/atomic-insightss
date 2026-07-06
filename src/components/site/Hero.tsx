@@ -1,22 +1,8 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, type MotionValue } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Circle } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import mark from "@/assets/atomic-mark.svg.asset.json";
-
-const rows = [
-  { date: "11/22", from: "ABBIE GAMBOA SR CHARLES…", acct: "•••• 4191", amount: "$20,000.00", vendor: "Acme LP Fund 25", status: "approved" },
-  { date: "11/12", from: "ABBIE GAMBOA SR CHARLES…", acct: "•••• 4191", amount: "$25,000.00", vendor: "Acme LP Fund 25", status: "rejected" },
-  { date: "11/09", from: "ABBIE GAMBOA SR CHARLES…", acct: "•••• 4191", amount: "$75,000.00", vendor: "Acme LP Fund 25", status: "created" },
-  { date: "11/08", from: "OLIVER SCRUB ADVISORS 51…", acct: "•••• 6293", amount: "$56,342.00", vendor: "Sequoia Capital", status: "created" },
-  { date: "11/08", from: "ABBIE GAMBOA SR CHARLES…", acct: "•••• 4191", amount: "$580.00", vendor: "Sotheby's", status: "approved" },
-];
-
-const statusClasses: Record<string, string> = {
-  approved: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100",
-  rejected: "bg-red-50 text-red-700 ring-1 ring-red-100",
-  created: "bg-sky-50 text-sky-700 ring-1 ring-sky-100",
-};
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -30,7 +16,6 @@ export function Hero() {
       ref={sectionRef}
       className="relative flex min-h-[auto] lg:min-h-[90vh] flex-col overflow-hidden bg-white"
     >
-      {/* soft gradient stage */}
       <div
         aria-hidden
         className="absolute inset-x-0 top-0 h-full -z-0"
@@ -112,8 +97,6 @@ export function Hero() {
 function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
   const reduce = useReducedMotion();
 
-  // Parallax: each element moves at a different speed as the hero scrolls.
-  // Different signs/magnitudes create depth.
   const yToastRaw = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const yCallRaw = useTransform(scrollYProgress, [0, 1], [0, 60]);
   const ySummaryRaw = useTransform(scrollYProgress, [0, 1], [0, -50]);
@@ -125,7 +108,6 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
   const ySummary = reduce ? zero : ySummaryRaw;
   const yPending = reduce ? zero : yPendingRaw;
 
-  // Float loop values (disabled when reduce-motion is on)
   const floatA = reduce ? undefined : { y: [0, -8, 0] };
   const floatB = reduce ? undefined : { y: [0, -6, 0] };
   const floatC = reduce ? undefined : { y: [0, -10, 0] };
@@ -137,36 +119,30 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
       transition={{ duration: 0.7, delay: 0.2 }}
       className="relative"
     >
-      {/* floating summary card top-left (existing) */}
+      {/* floating summary card top-left */}
       <motion.div
         style={{ y: ySummary }}
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.7 }}
-        className="absolute -top-6 -left-4 z-20 rounded-2xl bg-white p-4 ring-brand hidden sm:block"
+        className="absolute top-16 -left-6 z-20 rounded-2xl bg-white p-4 ring-brand hidden sm:block"
       >
-        <motion.div
-          animate={floatA}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        >
+        <motion.div animate={floatA} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
           <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Total Volume</div>
           <div className="mt-1 text-2xl font-semibold text-brand-navy">$1.6M</div>
-          <div className="mt-1 text-[11px] text-muted-foreground">1.26M transactions</div>
+          <div className="mt-1 text-[11px] text-muted-foreground">1,260,489 transactions</div>
         </motion.div>
       </motion.div>
 
-      {/* floating pending card (existing) */}
+      {/* floating pending card */}
       <motion.div
         style={{ y: yPending }}
         initial={{ opacity: 0, x: 10 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.9 }}
-        className="absolute -bottom-6 -right-4 z-20 rounded-2xl bg-brand-navy p-4 text-white shadow-2xl shadow-brand-navy/25 hidden sm:block"
+        className="absolute bottom-16 -right-6 z-20 rounded-2xl bg-brand-navy p-4 text-white shadow-2xl shadow-brand-navy/25 hidden sm:block"
       >
-        <motion.div
-          animate={floatB}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-        >
+        <motion.div animate={floatB} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}>
           <div className="text-[10px] uppercase tracking-wider text-white/60">Pending</div>
           <div className="mt-1 text-2xl font-semibold">$1.2M</div>
           <div className="mt-1 flex items-center gap-1.5 text-[11px] text-white/70">
@@ -176,13 +152,13 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         </motion.div>
       </motion.div>
 
-      {/* NEW: Wire approved toast — top right, spilling above the card */}
+      {/* Wire approved toast */}
       <motion.div
         style={{ y: yToast }}
         initial={{ opacity: 0, y: -20, x: 10 }}
         animate={{ opacity: 1, y: 0, x: 0 }}
         transition={{ duration: 0.55, delay: 1.0 }}
-        className="absolute -top-10 -right-8 xl:-right-16 z-30 hidden lg:flex items-center gap-3 rounded-2xl bg-white pl-2 pr-4 py-2 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
+        className="absolute -top-6 -right-4 xl:-right-10 z-30 hidden lg:flex items-center gap-3 rounded-2xl bg-white pl-2 pr-4 py-2 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
       >
         <motion.div
           animate={floatC}
@@ -203,19 +179,15 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         </motion.div>
       </motion.div>
 
-
-      {/* NEW: Capital call chip — bottom left, spilling below */}
+      {/* Capital call chip */}
       <motion.div
         style={{ y: yCall }}
         initial={{ opacity: 0, y: 20, x: -10 }}
         animate={{ opacity: 1, y: 0, x: 0 }}
         transition={{ duration: 0.55, delay: 1.25 }}
-        className="absolute -bottom-10 left-6 xl:-left-8 z-30 hidden lg:block rounded-2xl bg-white p-3.5 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
+        className="absolute -bottom-6 left-2 xl:-left-6 z-30 hidden lg:block rounded-2xl bg-white p-3.5 shadow-2xl shadow-brand-navy/15 ring-1 ring-brand-navy/5"
       >
-        <motion.div
-          animate={floatB}
-          transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
-        >
+        <motion.div animate={floatB} transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}>
           <div className="flex items-center gap-2">
             <span className="text-[9px] uppercase tracking-[0.18em] text-brand-blue font-semibold">
               Capital Call
@@ -232,100 +204,279 @@ function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<numbe
         </motion.div>
       </motion.div>
 
-
-      <div className="relative rounded-2xl bg-white border border-border shadow-2xl shadow-brand-navy/10 overflow-hidden">
-        {/* window chrome */}
-        <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
-          <span className="h-2.5 w-2.5 rounded-full bg-red-300" />
-          <span className="h-2.5 w-2.5 rounded-full bg-yellow-300" />
-          <span className="h-2.5 w-2.5 rounded-full bg-green-300" />
-          <div className="ml-4 text-[11px] text-muted-foreground">Atomic Capital Advisory · Payment Requests</div>
-        </div>
-
-        <div className="p-4 sm:p-5">
-          <div className="flex items-start sm:items-center justify-between mb-4 gap-3 flex-wrap">
-            <div className="min-w-0">
-              <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Payment Requests</div>
-              <div className="mt-1 text-sm font-medium text-brand-navy">Awaiting review · In process · Completed</div>
-            </div>
-            <div className="flex items-center gap-4 text-xs shrink-0">
-              <Stat label="Review" value="2" />
-              <Stat label="In Process" value="8" tone="warn" />
-              <Stat label="Completed" value="-" tone="ok" />
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-border overflow-x-auto">
-           <div className="min-w-[620px]">
-            <div className="grid grid-cols-[46px_1fr_90px_100px_1fr_100px_92px] gap-2 px-3 py-2 bg-surface text-[10px] uppercase tracking-wider text-muted-foreground">
-              <div>Date</div>
-              <div>From account</div>
-              <div>Acct #</div>
-              <div>Amount</div>
-              <div>Vendor</div>
-              <div>Verification</div>
-              <div>Status</div>
-            </div>
-            <div className="divide-y divide-border">
-              {rows.map((r, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: 0.45 + i * 0.08 }}
-                  className="grid grid-cols-[46px_1fr_90px_100px_1fr_100px_92px] gap-2 px-3 py-2.5 text-[11px] text-brand-navy items-center"
-                >
-                  <div className="text-muted-foreground">{r.date}</div>
-                  <div className="truncate font-medium">{r.from}</div>
-                  <div className="text-muted-foreground">{r.acct}</div>
-                  <div className="tabular-nums font-medium">{r.amount}</div>
-                  <div className="truncate">{r.vendor}</div>
-                  <VerificationDots delay={0.7 + i * 0.1} status={r.status} />
-                  <div>
-                    <span className={`inline-flex rounded-md px-2 py-0.5 text-[10px] font-medium capitalize ${statusClasses[r.status]}`}>
-                      {r.status}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-           </div>
-          </div>
-        </div>
-      </div>
+      {/* LAPTOP */}
+      <Laptop />
     </motion.div>
   );
 }
 
-function Stat({ label, value, tone }: { label: string; value: string; tone?: "ok" | "warn" }) {
+function Laptop() {
   return (
-    <div className="text-center">
-      <div className="text-[9px] uppercase tracking-wider text-muted-foreground">{label}</div>
-      <div className={`text-sm font-semibold ${tone === "warn" ? "text-amber-600" : tone === "ok" ? "text-emerald-600" : "text-brand-navy"}`}>
-        {value}
+    <div
+      className="hero-laptop relative mx-auto w-full max-w-[640px]"
+      style={{
+        animation: "heroLaptopFloat 9s ease-in-out infinite",
+        filter: "drop-shadow(0 34px 48px rgba(7,24,56,.22))",
+      }}
+    >
+      {/* lid */}
+      <div style={{ background: "#071838", borderRadius: "20px 20px 6px 6px", padding: "12px 12px 14px" }}>
+        <div
+          style={{
+            background: "#FFFFFF",
+            borderRadius: 10,
+            aspectRatio: "16 / 10",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {/* chrome */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "8px 14px",
+              borderBottom: "1px solid #ECEFF4",
+              flex: "none",
+            }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#E4E8EF" }} />
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#E4E8EF" }} />
+            <img src={mark.url} alt="" style={{ height: 13, width: "auto", marginLeft: 8 }} />
+            <span style={{ fontSize: 9.5, color: "#8A96AA", fontWeight: 500 }}>
+              Atomic Capital Advisory
+            </span>
+            <span
+              style={{
+                marginLeft: "auto",
+                width: 18,
+                height: 18,
+                borderRadius: "50%",
+                background: "linear-gradient(135deg,#6DBF80,#71AEDA)",
+              }}
+            />
+          </div>
+          <div style={{ display: "flex", flex: 1, minHeight: 0 }}>
+            {/* sidebar */}
+            <div
+              style={{
+                width: 38,
+                flex: "none",
+                borderRight: "1px solid #ECEFF4",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 12,
+                paddingTop: 14,
+              }}
+            >
+              <span style={{ width: 16, height: 16, borderRadius: 5, background: "#071838" }} />
+              <span style={{ width: 16, height: 16, borderRadius: 5, background: "#E4E8EF" }} />
+              <span style={{ width: 16, height: 16, borderRadius: 5, background: "#E4E8EF" }} />
+              <span style={{ width: 16, height: 16, borderRadius: 5, background: "#E4E8EF" }} />
+            </div>
+            {/* scenes */}
+            <div style={{ position: "relative", flex: 1, minWidth: 0 }}>
+              <ScenePayments />
+              <SceneCapitalCall />
+              <SceneCash />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* base */}
+      <div
+        style={{
+          height: 15,
+          width: "112%",
+          marginLeft: "-6%",
+          background: "linear-gradient(180deg,#E3E7EE 0%,#C7CEDA 100%)",
+          borderRadius: "2px 2px 14px 14px",
+          position: "relative",
+        }}
+      >
+        <span
+          style={{
+            position: "absolute",
+            top: 0,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 96,
+            height: 6,
+            background: "#B4BCCA",
+            borderRadius: "0 0 8px 8px",
+          }}
+        />
       </div>
     </div>
   );
 }
 
-function VerificationDots({ delay, status }: { delay: number; status: string }) {
-  const dots = status === "rejected" ? ["red", "amber", "red"] : status === "created" ? ["green", "amber", "red"] : ["green", "green", "green"];
-  const color = (c: string) =>
-    c === "green" ? "bg-emerald-500" : c === "amber" ? "bg-amber-400" : "bg-red-500";
+const sceneStyle = (delay: number): React.CSSProperties => ({
+  position: "absolute",
+  inset: 0,
+  padding: "14px 16px",
+  animation: `heroSceneWin 18s linear infinite both`,
+  animationDelay: `${delay}s`,
+});
+
+function ScenePayments() {
+  const rows = [
+    { d: "11/22", name: "Abbie Garcia ····4191", amt: "$20,000", status: "Approved", tone: "green", delay: 0.3, dotBase: 1.6, pillDelay: 3.4 },
+    { d: "11/12", name: "Oliver Shaw ····6293", amt: "$56,342", status: "Approved", tone: "green", delay: 0.6, dotBase: 2.0, pillDelay: 3.8 },
+    { d: "11/09", name: "Meridian FO ····4191", amt: "$75,000", status: "Approved", tone: "green", delay: 0.9, dotBase: 2.4, pillDelay: 4.2 },
+    { d: "11/08", name: "Halcyon Cap ····8804", amt: "$32,500", status: "In review", tone: "blue", delay: 1.2, dotBase: 2.8, pillDelay: 4.6 },
+    { d: "11/08", name: "Ashwood FO ····4191", amt: "$580", status: "Approved", tone: "green", delay: 1.5, dotBase: 3.2, pillDelay: 5.0 },
+  ];
+  const gridCols = "36px 1fr 62px 64px 58px";
   return (
-    <div className="flex items-center gap-1">
-      {dots.map((d, i) => (
-        <motion.span
+    <div style={sceneStyle(0)}>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: "#071838" }}>Payment Requests</span>
+        <span style={{ fontSize: 9, fontWeight: 600, color: "#19284A", background: "#EEF2F7", borderRadius: 999, padding: "2px 8px" }}>Review · 2</span>
+        <span style={{ fontSize: 9, fontWeight: 600, color: "#71AEDA" }}>In process · 8</span>
+        <span style={{ fontSize: 9, fontWeight: 500, color: "#B0B9C7" }}>Completed</span>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: gridCols, gap: 8, fontSize: 8, fontWeight: 700, letterSpacing: ".07em", color: "#9AA5B5", padding: "12px 4px 6px", borderBottom: "1px solid #ECEFF4" }}>
+        <span>DATE</span><span>FROM ACCOUNT</span><span>AMOUNT</span><span>CASH · SLOA · REP</span><span>STATUS</span>
+      </div>
+      {rows.map((r, i) => (
+        <div
           key={i}
-          initial={{ scale: 0.4, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.3, delay: delay + i * 0.08 }}
-          className={`h-2 w-2 rounded-full ${color(d)}`}
-        />
+          style={{
+            display: "grid",
+            gridTemplateColumns: gridCols,
+            gap: 8,
+            alignItems: "center",
+            padding: "7px 4px",
+            borderBottom: i < rows.length - 1 ? "1px solid #F2F4F8" : undefined,
+            fontSize: 9.5,
+            color: "#19284A",
+            animation: `heroRise 18s linear infinite both`,
+            animationDelay: `${r.delay}s`,
+          }}
+        >
+          <span style={{ color: "#8A96AA" }}>{r.d}</span>
+          <span style={{ fontWeight: 600 }}>{r.name}</span>
+          <span style={{ fontWeight: 700 }}>{r.amt}</span>
+          <span style={{ display: "flex", gap: 4 }}>
+            {[0, 1, 2].map((k) => (
+              <span
+                key={k}
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "#DCE1E9",
+                  animation: `heroResolveDot 18s linear infinite both`,
+                  animationDelay: `${r.dotBase + k * 0.25}s`,
+                }}
+              />
+            ))}
+          </span>
+          <span
+            style={{
+              justifySelf: "start",
+              fontSize: 8.5,
+              fontWeight: 700,
+              color: r.tone === "green" ? "#3E8B57" : "#2E6FA8",
+              background: r.tone === "green" ? "rgba(109,191,128,.16)" : "rgba(113,174,218,.18)",
+              borderRadius: 999,
+              padding: "2px 8px",
+              animation: `heroPopIn 18s linear infinite both`,
+              animationDelay: `${r.pillDelay}s`,
+            }}
+          >
+            {r.status}
+          </span>
+        </div>
       ))}
     </div>
   );
 }
 
-// Circle is imported but unused historically; keep to avoid breaking any external ref.
-void Circle;
+function SceneCapitalCall() {
+  const lps = [
+    { n: "Meridian FO", a: "$62,000", d: 6.3, cd: 7.7 },
+    { n: "Garcia Trust", a: "$48,500", d: 6.45, cd: 7.9 },
+    { n: "Northlake LP", a: "$75,000", d: 6.6, cd: 8.1 },
+    { n: "Halcyon Cap", a: "$39,200", d: 6.75, cd: 8.3 },
+    { n: "Ashwood FO", a: "$54,750", d: 6.9, cd: 8.5 },
+  ];
+  return (
+    <div style={{ ...sceneStyle(6) }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: "#071838" }}>Capital Call — Sequoia Capital XII</span>
+        <span style={{ fontSize: 9, fontWeight: 700, color: "#464A80", background: "rgba(70,74,128,.12)", borderRadius: 999, padding: "2px 8px" }}>47 LPs</span>
+        <span style={{ fontSize: 9, fontWeight: 700, color: "#3E8B57", background: "rgba(109,191,128,.16)", borderRadius: 999, padding: "2px 8px" }}>Bulk submit</span>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 12 }}>
+        {lps.map((lp) => (
+          <div key={lp.n} style={{ border: "1px solid #ECEFF4", borderRadius: 8, padding: "8px 10px", animation: `heroRise 18s linear infinite both`, animationDelay: `${lp.d}s` }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: 9, fontWeight: 600, color: "#19284A" }}>{lp.n}</span>
+              <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#6DBF80", color: "#fff", fontSize: 7, display: "inline-flex", alignItems: "center", justifyContent: "center", animation: `heroPopIn 18s linear infinite both`, animationDelay: `${lp.cd}s` }}>✓</span>
+            </div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#071838", marginTop: 3 }}>{lp.a}</div>
+          </div>
+        ))}
+        <div style={{ border: "1px dashed #D5DBE4", borderRadius: 8, padding: "8px 10px", display: "flex", alignItems: "center", justifyContent: "center", animation: `heroRise 18s linear infinite both`, animationDelay: "7.05s" }}>
+          <span style={{ fontSize: 9.5, fontWeight: 600, color: "#8A96AA" }}>+ 42 more wires</span>
+        </div>
+      </div>
+      <div style={{ marginTop: 14, background: "#071838", borderRadius: 10, padding: "11px 14px", display: "flex", alignItems: "center", gap: 12, animation: `heroRise 18s linear infinite both`, animationDelay: "8.8s" }}>
+        <span style={{ fontSize: 9.5, fontWeight: 600, color: "#FFFFFF", whiteSpace: "nowrap" }}>47 wires → 1 reviewed action</span>
+        <span style={{ flex: 1, height: 5, borderRadius: 999, background: "rgba(255,255,255,.16)", overflow: "hidden", display: "block" }}>
+          <span style={{ display: "block", height: "100%", borderRadius: 999, background: "linear-gradient(90deg,#6DBF80,#A3C64B)", animation: `heroProgFill 18s linear infinite both` }} />
+        </span>
+        <span style={{ fontSize: 9, fontWeight: 700, color: "#6DBF80", whiteSpace: "nowrap", animation: `heroPopIn 18s linear infinite both`, animationDelay: "10.9s" }}>Submitted ✓</span>
+      </div>
+    </div>
+  );
+}
+
+function SceneCash() {
+  const bars = [
+    { h: "46%", c: "#19284A", d: 0 },
+    { h: "70%", c: "#71AEDA", d: 0.15 },
+    { h: "92%", c: "#6DBF80", d: 0.3 },
+    { h: "58%", c: "#464A80", d: 0.45 },
+    { h: "78%", c: "#A3C64B", d: 0.6 },
+  ];
+  const labels = ["OPERATING", "RESERVE", "T-BILLS", "MMF", "SWEEP"];
+  return (
+    <div style={sceneStyle(12)}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: "#071838" }}>Cash Positions</span>
+        <span style={{ fontSize: 9, fontWeight: 700, color: "#3E8B57", background: "rgba(109,191,128,.16)", borderRadius: 999, padding: "2px 8px" }}>Auto-sweep on</span>
+      </div>
+      <div style={{ display: "flex", alignItems: "flex-end", gap: 12, height: 104, marginTop: 16, padding: "0 6px" }}>
+        {bars.map((b, i) => (
+          <span
+            key={i}
+            style={{
+              flex: 1,
+              height: b.h,
+              borderRadius: "6px 6px 2px 2px",
+              background: b.c,
+              transformOrigin: "bottom",
+              animation: `heroGrowBar 18s linear infinite both`,
+              animationDelay: `${b.d}s`,
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ display: "flex", gap: 12, padding: "6px 6px 0", fontSize: 8, fontWeight: 600, color: "#9AA5B5", letterSpacing: ".04em" }}>
+        {labels.map((l) => (
+          <span key={l} style={{ flex: 1, textAlign: "center" }}>{l}</span>
+        ))}
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 12, animation: `heroRise 18s linear infinite both`, animationDelay: "13.6s" }}>
+        <span style={{ fontSize: 9.5, fontWeight: 600, color: "#19284A" }}>Idle cash detected → swept to T-Bills</span>
+        <span style={{ fontSize: 9, fontWeight: 700, color: "#5C7326", background: "rgba(163,198,75,.22)", borderRadius: 999, padding: "2px 8px", animation: `heroPopIn 18s linear infinite both`, animationDelay: "14.2s" }}>+$18,420 est. annual yield</span>
+      </div>
+    </div>
+  );
+}
