@@ -134,44 +134,79 @@ const values = [
 ];
 
 function AboutPage() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const reduce = useReducedMotion();
+  const yRaw = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, 140]);
+  const scaleRaw = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1, 1.15]);
+  const opacityRaw = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
+  const y = useSpring(yRaw, { stiffness: 80, damping: 20, mass: 0.4 });
+  const scale = useSpring(scaleRaw, { stiffness: 80, damping: 20, mass: 0.4 });
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
         {/* HERO */}
-        <section className="relative overflow-hidden bg-brand-navy-deep text-white">
-          <div
+        <section
+          ref={heroRef}
+          className="relative overflow-hidden bg-brand-navy-deep text-white"
+        >
+          <motion.div
             aria-hidden
             className="absolute inset-0"
             style={{
+              scale,
               background:
                 "radial-gradient(1000px 600px at 20% 10%, rgba(111,190,68,0.10), transparent 60%), radial-gradient(1200px 700px at 85% 90%, rgba(47,128,194,0.22), transparent 60%)",
             }}
           />
-          <div
+          <motion.div
             aria-hidden
             className="absolute inset-0 opacity-[0.06]"
             style={{
+              y,
               backgroundImage:
                 "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
               backgroundSize: "28px 28px",
             }}
           />
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-28 sm:py-40 lg:py-52">
-            <Reveal>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] backdrop-blur px-3 py-1 text-xs font-medium text-white/80">
-                <img src={mark.url} alt="" className="h-3.5 w-3.5 brightness-0 invert" />
-                About Atomic Insights
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h1 className="mt-8 max-w-4xl text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight">
-                Institutional precision.
-                <br />
-                <span className="text-white/70">Human trust.</span>
-              </h1>
-            </Reveal>
-          </div>
+          <motion.div style={{ opacity: opacityRaw }} className="relative mx-auto max-w-7xl px-4 sm:px-6 py-28 sm:py-40 lg:py-52">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] backdrop-blur px-3 py-1 text-xs font-medium text-white/80"
+            >
+              <img src={mark.url} alt="" className="h-3.5 w-3.5 brightness-0 invert" />
+              About Atomic Insights
+            </motion.div>
+            <h1 className="mt-8 max-w-4xl text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight">
+              <WordReveal text="Institutional precision." delay={0.2} />
+              <br />
+              <span className="text-white/70">
+                <WordReveal text="Human trust." delay={0.7} />
+              </span>
+            </h1>
+            {!reduce && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.6, duration: 0.8 }}
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 text-[10px] uppercase tracking-[0.25em]"
+              >
+                <span>Scroll</span>
+                <motion.span
+                  className="h-8 w-px bg-white/30 origin-top"
+                  animate={{ scaleY: [0, 1, 0] }}
+                  transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </motion.div>
+            )}
+          </motion.div>
         </section>
 
         {/* MISSION */}
