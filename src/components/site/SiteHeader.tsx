@@ -78,7 +78,7 @@ export function SiteHeader() {
             </Link>
 
             <nav className="hidden lg:flex items-center gap-7">
-              <Link to="/" className="text-sm font-medium text-brand-navy/80 hover:text-brand-navy">About</Link>
+              <Link to="/about" className="text-sm font-medium text-brand-navy/80 hover:text-brand-navy">About</Link>
               <NavItem label="Products" items={products} />
               <NavItem label="Resources" items={resources} />
               <NavItem label="Insights" items={insights} />
@@ -110,7 +110,7 @@ export function SiteHeader() {
         {open && (
           <div className="lg:hidden border-t border-border bg-white">
             <div className="mx-auto max-w-7xl px-4 py-4 space-y-1">
-              <Link to="/" className="block py-2 text-sm font-medium text-brand-navy">About</Link>
+              <Link to="/about" className="block py-2 text-sm font-medium text-brand-navy">About</Link>
               <div className="py-2">
                 <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Products</div>
                 {products.map((p) => (

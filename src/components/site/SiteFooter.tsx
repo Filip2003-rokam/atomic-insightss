@@ -50,7 +50,7 @@ export function SiteFooter() {
               <ul className="space-y-2.5">
                 {c.links.map((l) => (
                   <li key={l}>
-                    <Link to="/" className="text-sm text-white/80 hover:text-white transition-colors">
+                    <Link to={l === "About" ? "/about" : "/"} className="text-sm text-white/80 hover:text-white transition-colors">
                       {l}
                     </Link>
                   </li>

@@ -1,39 +1,58 @@
-# Plan: Laptop mockup u Hero sekciji
+# Plan: About Us stranica
 
-Iz Claude dizajna (`Hero_Redesign.dc.html`) implementiram **samo laptop** — desna kolona hero-a. Sve ostalo (levi copy, gradient pozadina, floating kartice, promo bar, nav) ostaje kako je.
+Nova ruta `/about` sa sadržajem iz uploadovanog `Atomic_Insights_About_Us.docx`, vizuelno inspirisana IEQ Capital about stranicom (cinematic hero sa tamnom navy overlay-om preko fotografije, tanka svetla tipografija, dosta belog prostora, tihi minimalizam).
 
-## Šta menjam
-Samo `HeroDashboard` u `src/components/site/Hero.tsx`. Trenutno je to obična window kartica sa tabelom koja se pomera (parallax + hover shifts). Zamenjujem je laptop mockup-om iz dizajna.
+## Struktura stranice
 
-## Struktura laptopa
-- **Šasija:** tamno-navy (`#071838`) okvir sa `border-radius:20px 20px 6px 6px`, padding, aspect `16/10` ekran unutra.
-- **Ekran:** beli, sa app chrome-om na vrhu (2 dot-a, mini logo, "Atomic Capital Advisory", avatar), levim sidebar-om (38px) sa 4 kvadratića, i scene stack-om desno.
-- **Baza:** trapezoidna traka ispod ekrana sa `linear-gradient` + mala kvačica u sredini.
-- **Float:** ceo laptop lagano lebdi (`y: [0,-10,0]`, 9s loop) — samo desktop (`hidden lg:block`), sa `useReducedMotion` guard-om.
+1. **Hero (full-viewport, cinematic)**
+   - Fullscreen navy pozadina sa suptilnim gradient/texture overlay-om (u stilu IEQ moon shot, ali apstraktno — arhitektonski/atomic pattern, ne astronaut).
+   - Naslov u tankom serif/light sans stilu: **"Institutional Precision. Human Trust."**
+   - Bez CTA-a u hero-u — samo mirna izjava, kao na IEQ.
 
-## 3 scene (auto-cycle u ekranu, 18s ukupno, po 6s svaka)
-Sve tri su `absolute inset-0` unutar scene-stack kontejnera, svaka sa keyframe animacijom koja je pokazuje 3–33% od 100% ciklusa:
+2. **Our Mission**
+   - Belа sekcija, centrirana kolona (max ~720px).
+   - Mali eyebrow "Our Mission", zatim lead paragraf ("We believe the firms trusted…") u većem svetlom stilu, pa dva prateća paragrafa manjim body tekstom.
 
-1. **Payment Requests** (0–6s) — header sa tab pill-ovima ("Review · 2", "In process · 8"), tabela sa 5 redova (Abbie Garcia, Oliver Shaw, Meridian FO, Halcyon Cap, Ashwood FO), verification dots koji se resolve-uju kroz sivo→plavo→zeleno, status pill-ovi ("Approved"/"In review") koji pop-in-uju.
-2. **Bulk Capital Call — Sequoia XII** (6–12s) — 3×2 grid LP kartica sa iznosima ($62K, $48.5K, $75K, $39.2K, $54.75K, "+ 42 more wires"), tamna traka na dnu sa progress fill-om i "Submitted ✓" chip-om.
-3. **Cash Positions** (12–18s) — bar chart sa 5 stupaca (Operating/Reserve/T-Bills/MMF/Sweep) koji rastu, ispod "Idle cash detected → swept to T-Bills · +$18,420 est. annual yield".
+3. **Why we built Atomic** (split layout)
+   - Levo: naslov + tekst iz sekcije "The Why" (3 paragrafa).
+   - Desno: image placeholder za Rich & Lucas portret (koristi jedan od već postojećih assets kao privremeni fill; kasnije korisnik ubaci pravu fotku).
 
-## Postojeći floating cards
-Zadržavam sve četiri float kartice koje su već tu (Total Volume, Pending, Wire approved toast, Sequoia capital call chip) — pozicioniraju se u odnosu na laptop wrapper isto kao i sada u odnosu na window karticu, ne diram njihov sadržaj.
+4. **Atomic Connects the Systems You Already Use**
+   - Naslov + kratki paragraf.
+   - Ispod: reuse postojećeg integrations reda iz `SiteFooter`-a (Schwab, Fidelity, Salesforce, Addepar, Arch, Canoe, iCapital) kao statičan connectivity band. (Napomena iz dokumenta traži HTML animaciju — ostaviću placeholder komentar i jednostavan grid; ako želiš animaciju, uradićemo u sledećem koraku.)
 
-## Ono što NE menjam
-- Levu kolonu (badge, headline, paragraf, CTA-ovi, trust row)
-- Gradient pozadinu hero sekcije
-- Sve ostale sekcije stranice (FeatureSuite, itd.)
-- Postojeći `useScroll` parallax na float karticama (ostaje)
-- Mobile layout — laptop je `hidden lg:block`, na mobilnom se prikazuje fallback (jednostavna kartica sa 1 scenom, bez laptop šasije) da hero ne bude prazan
+5. **Proof band**
+   - Tanka tamna traka: `$120B assets on platform · Fidelity + Schwab live API access · SOC 2 Type II · Founded 2022`.
 
-## Tehnički detalji
-- Sve boje iz dizajna hardcode-ujem inline (nisu design tokens — `#071838`, `#6DBF80`, `#71AEDA`, `#464A80`, `#A3C64B`, `#3E8B57`).
-- Keyframe animacije (`sceneWin`, `rise`, `popIn`, `resolveDot`, `progFill`, `growBar`, `heroFloat`) dodajem u `src/styles.css` kao globalne `@keyframes` (nije Tailwind utility) — postoji već sličan pattern.
-- Sve `animation-play-state` respektuje `prefers-reduced-motion` preko `@media (prefers-reduced-motion: reduce) { * { animation-play-state: paused !important; } }` scoped na `.hero-laptop`.
-- Uklanjam sadašnji `HeroDashboard` window/tabelu i njene helpere (`Stat`, `VerificationDots`, `rows`, `statusClasses`) — više nisu potrebni jer sve scene idu kroz statični markup u laptopu.
+6. **Leadership**
+   - Naslov "Leadership", ispod 2 kartice (Lucas Babbitt, Nick Chen) sa avatar placeholder-om, imenom, titulom i bio-om iz dokumenta. Nick ima "Bio coming soon" jer nije dostavljen.
 
-## Fajlovi koje diram
-- `src/components/site/Hero.tsx` — zamena `HeroDashboard` komponente.
-- `src/styles.css` — dodavanje keyframe-ova za laptop scene i float.
+7. **What we stand for**
+   - 3 kolone (Everything in one place / Accuracy you can stand behind / Time returned to the work that matters), svaka sa mikro-ikonom + naslov + kratki opis iz dokumenta.
+
+8. **Closing CTA**
+   - Tamna navy sekcija: "See your systems working as one." + primarni "Book a demo" i sekundarni "Talk to our team".
+
+Zatim standardni `SiteFooter`.
+
+## Fajlovi koje kreiram / menjam
+
+- **`src/routes/about.tsx`** — nova ruta, `createFileRoute("/about")`, sa svojim `head()` (title/description/og:title/og:description specifično za About). Bez og:image za sada.
+- **`src/components/site/AboutHero.tsx`** — hero komponenta (odvojena da ostane čista).
+- **`src/components/site/AboutSections.tsx`** — ostale sekcije stranice (mission, why, connectivity, proof, leadership, values, CTA) da fajl `about.tsx` ostane pregledan.
+- **`src/components/site/SiteHeader.tsx`** — dodajem link "About" da vodi na `/about` (trenutno "About" link vodi na `/`).
+- **`src/components/site/SiteFooter.tsx`** — "About" u Company koloni vodi na `/about`.
+- **`routeTree.gen.ts`** — automatski se regeneriše, ne diram ručno.
+
+## Vizuelni pristup (inspirisano IEQ)
+
+- Postojeći brand tokeni: `bg-brand-navy-deep`, `text-brand-navy`, `bg-brand-green` — koristim ih, ne dodajem nove.
+- Hero: `bg-brand-navy-deep` + suptilan radial gradient + zrnasti overlay (CSS), tanki `font-weight: 300` naslov sa `tracking-wide`, uppercase varijanta odbačena (Atomic ima moderniji ton — koristim mixed case kao u ostatku sajta).
+- Sve ostale sekcije: postojeće `bg-white` / `bg-surface` smene, iste type/spacing skale kao Hero.tsx da bude konzistentno sa homepage-om.
+- Bez novih zavisnosti; motion sekcije koriste postojeći `Reveal` wrapper za scroll-in animacije.
+
+## Šta NE radim (osim ako ne tražiš)
+
+- Ne pravim posebne detaljne stranice za pojedinačne founder-e (dokumenta pominje "credibility through founder pages" ali nisu dostavljeni bio-detalji za Nick-a — ostavljam za sledeći korak).
+- Ne implementiram custom "Atomic Connectivity Layer" animaciju — koristim statičan integrations band; ako pošalješ HTML animaciju iz dokumenta, ubaciću je posle.
+- Ne diram homepage, Hero, FeatureSuite ni bilo šta drugo van header/footer linkova.
