@@ -1,9 +1,87 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Layers, ShieldCheck, Clock } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+  animate,
+  useReducedMotion,
+} from "framer-motion";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Reveal } from "@/components/site/Reveal";
 import mark from "@/assets/atomic-mark.svg.asset.json";
+
+// Word-by-word stagger reveal (IEQ-style quiet cinematic entrance)
+function WordReveal({
+  text,
+  className,
+  delay = 0,
+}: {
+  text: string;
+  className?: string;
+  delay?: number;
+}) {
+  const reduce = useReducedMotion();
+  const words = text.split(" ");
+  if (reduce) return <span className={className}>{text}</span>;
+  return (
+    <span className={className}>
+      {words.map((w, i) => (
+        <span key={i} className="inline-block overflow-hidden align-baseline pb-[0.15em]">
+          <motion.span
+            className="inline-block"
+            initial={{ y: "110%" }}
+            animate={{ y: "0%" }}
+            transition={{
+              duration: 0.9,
+              delay: delay + i * 0.08,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {w}
+            {i < words.length - 1 ? "\u00A0" : ""}
+          </motion.span>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+// Count-up animation for the $120B stat
+function CountUp({ to, prefix = "", suffix = "" }: { to: number; prefix?: string; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reduce = useReducedMotion();
+  const mv = useMotionValue(0);
+  const [display, setDisplay] = useState("0");
+
+  useEffect(() => {
+    if (!inView) return;
+    if (reduce) {
+      setDisplay(String(to));
+      return;
+    }
+    const controls = animate(mv, to, {
+      duration: 1.8,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setDisplay(Math.round(v).toString()),
+    });
+    return () => controls.stop();
+  }, [inView, to, reduce, mv]);
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      {display}
+      {suffix}
+    </span>
+  );
+}
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
