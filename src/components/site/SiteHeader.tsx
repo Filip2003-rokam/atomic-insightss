@@ -78,7 +78,7 @@ export function SiteHeader() {
             </Link>
 
             <nav className="hidden lg:flex items-center gap-7">
-              <Link to="/" className="text-sm font-medium text-brand-navy/80 hover:text-brand-navy">About</Link>
+              <Link to="/about" className="text-sm font-medium text-brand-navy/80 hover:text-brand-navy">About</Link>
               <NavItem label="Products" items={products} />
               <NavItem label="Resources" items={resources} />
               <NavItem label="Insights" items={insights} />
