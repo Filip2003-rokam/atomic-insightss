@@ -1,9 +1,87 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Layers, ShieldCheck, Clock } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+  animate,
+  useReducedMotion,
+} from "framer-motion";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Reveal } from "@/components/site/Reveal";
 import mark from "@/assets/atomic-mark.svg.asset.json";
+
+// Word-by-word stagger reveal (IEQ-style quiet cinematic entrance)
+function WordReveal({
+  text,
+  className,
+  delay = 0,
+}: {
+  text: string;
+  className?: string;
+  delay?: number;
+}) {
+  const reduce = useReducedMotion();
+  const words = text.split(" ");
+  if (reduce) return <span className={className}>{text}</span>;
+  return (
+    <span className={className}>
+      {words.map((w, i) => (
+        <span key={i} className="inline-block overflow-hidden align-baseline pb-[0.15em]">
+          <motion.span
+            className="inline-block"
+            initial={{ y: "110%" }}
+            animate={{ y: "0%" }}
+            transition={{
+              duration: 0.9,
+              delay: delay + i * 0.08,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {w}
+            {i < words.length - 1 ? "\u00A0" : ""}
+          </motion.span>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+// Count-up animation for the $120B stat
+function CountUp({ to, prefix = "", suffix = "" }: { to: number; prefix?: string; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reduce = useReducedMotion();
+  const mv = useMotionValue(0);
+  const [display, setDisplay] = useState("0");
+
+  useEffect(() => {
+    if (!inView) return;
+    if (reduce) {
+      setDisplay(String(to));
+      return;
+    }
+    const controls = animate(mv, to, {
+      duration: 1.8,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setDisplay(Math.round(v).toString()),
+    });
+    return () => controls.stop();
+  }, [inView, to, reduce, mv]);
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      {display}
+      {suffix}
+    </span>
+  );
+}
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -56,44 +134,79 @@ const values = [
 ];
 
 function AboutPage() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const reduce = useReducedMotion();
+  const yRaw = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, 140]);
+  const scaleRaw = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1, 1.15]);
+  const opacityRaw = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
+  const y = useSpring(yRaw, { stiffness: 80, damping: 20, mass: 0.4 });
+  const scale = useSpring(scaleRaw, { stiffness: 80, damping: 20, mass: 0.4 });
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
         {/* HERO */}
-        <section className="relative overflow-hidden bg-brand-navy-deep text-white">
-          <div
+        <section
+          ref={heroRef}
+          className="relative overflow-hidden bg-brand-navy-deep text-white"
+        >
+          <motion.div
             aria-hidden
             className="absolute inset-0"
             style={{
+              scale,
               background:
                 "radial-gradient(1000px 600px at 20% 10%, rgba(111,190,68,0.10), transparent 60%), radial-gradient(1200px 700px at 85% 90%, rgba(47,128,194,0.22), transparent 60%)",
             }}
           />
-          <div
+          <motion.div
             aria-hidden
             className="absolute inset-0 opacity-[0.06]"
             style={{
+              y,
               backgroundImage:
                 "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
               backgroundSize: "28px 28px",
             }}
           />
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-28 sm:py-40 lg:py-52">
-            <Reveal>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] backdrop-blur px-3 py-1 text-xs font-medium text-white/80">
-                <img src={mark.url} alt="" className="h-3.5 w-3.5 brightness-0 invert" />
-                About Atomic Insights
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h1 className="mt-8 max-w-4xl text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight">
-                Institutional precision.
-                <br />
-                <span className="text-white/70">Human trust.</span>
-              </h1>
-            </Reveal>
-          </div>
+          <motion.div style={{ opacity: opacityRaw }} className="relative mx-auto max-w-7xl px-4 sm:px-6 py-28 sm:py-40 lg:py-52">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] backdrop-blur px-3 py-1 text-xs font-medium text-white/80"
+            >
+              <img src={mark.url} alt="" className="h-3.5 w-3.5 brightness-0 invert" />
+              About Atomic Insights
+            </motion.div>
+            <h1 className="mt-8 max-w-4xl text-4xl sm:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight">
+              <WordReveal text="Institutional precision." delay={0.2} />
+              <br />
+              <span className="text-white/70">
+                <WordReveal text="Human trust." delay={0.7} />
+              </span>
+            </h1>
+            {!reduce && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.6, duration: 0.8 }}
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 text-[10px] uppercase tracking-[0.25em]"
+              >
+                <span>Scroll</span>
+                <motion.span
+                  className="h-8 w-px bg-white/30 origin-top"
+                  animate={{ scaleY: [0, 1, 0] }}
+                  transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </motion.div>
+            )}
+          </motion.div>
         </section>
 
         {/* MISSION */}
@@ -227,19 +340,35 @@ function AboutPage() {
             </div>
 
             <Reveal delay={0.15}>
-              <div className="mt-12 rounded-2xl border border-border bg-surface px-6 py-8 sm:px-10 sm:py-10">
-                <div className="text-xs uppercase tracking-[0.2em] text-brand-navy/50 mb-6">
+              <div className="mt-12 relative rounded-2xl border border-border bg-surface py-8 sm:py-10 overflow-hidden">
+                <div className="text-xs uppercase tracking-[0.2em] text-brand-navy/50 mb-6 px-6 sm:px-10">
                   Connected across your stack
                 </div>
-                <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-                  {integrations.map((name, i) => (
-                    <span key={name} className="flex items-center gap-8">
-                      {i > 0 && <span className="text-brand-navy/20">·</span>}
-                      <span className="text-base sm:text-lg font-medium text-brand-navy">
-                        {name}
-                      </span>
-                    </span>
-                  ))}
+                <div
+                  className="relative overflow-hidden"
+                  style={{
+                    maskImage:
+                      "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+                    WebkitMaskImage:
+                      "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+                  }}
+                >
+                  <motion.div
+                    className="flex items-center gap-14 whitespace-nowrap w-max"
+                    animate={{ x: ["0%", "-50%"] }}
+                    transition={{ duration: 32, ease: "linear", repeat: Infinity }}
+                  >
+                    {[...integrations, ...integrations, ...integrations, ...integrations].map(
+                      (name, i) => (
+                        <span key={i} className="flex items-center gap-14">
+                          <span className="text-lg sm:text-xl font-medium text-brand-navy tracking-tight">
+                            {name}
+                          </span>
+                          <span className="text-brand-navy/20">·</span>
+                        </span>
+                      )
+                    )}
+                  </motion.div>
                 </div>
               </div>
             </Reveal>
@@ -252,14 +381,16 @@ function AboutPage() {
             <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-white/80">
               <span className="inline-flex items-center gap-2">
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-brand-green" />
-                $120B assets on platform
+                <CountUp prefix="$" to={120} suffix="B" /> assets on platform
               </span>
               <span className="text-white/25">·</span>
               <span>Fidelity + Schwab live API access</span>
               <span className="text-white/25">·</span>
               <span>SOC 2 Type II</span>
               <span className="text-white/25">·</span>
-              <span>Founded 2022</span>
+              <span>
+                Founded <CountUp to={2022} />
+              </span>
             </div>
           </div>
         </section>
