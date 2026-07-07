@@ -340,19 +340,35 @@ function AboutPage() {
             </div>
 
             <Reveal delay={0.15}>
-              <div className="mt-12 rounded-2xl border border-border bg-surface px-6 py-8 sm:px-10 sm:py-10">
-                <div className="text-xs uppercase tracking-[0.2em] text-brand-navy/50 mb-6">
+              <div className="mt-12 relative rounded-2xl border border-border bg-surface py-8 sm:py-10 overflow-hidden">
+                <div className="text-xs uppercase tracking-[0.2em] text-brand-navy/50 mb-6 px-6 sm:px-10">
                   Connected across your stack
                 </div>
-                <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-                  {integrations.map((name, i) => (
-                    <span key={name} className="flex items-center gap-8">
-                      {i > 0 && <span className="text-brand-navy/20">·</span>}
-                      <span className="text-base sm:text-lg font-medium text-brand-navy">
-                        {name}
-                      </span>
-                    </span>
-                  ))}
+                <div
+                  className="relative overflow-hidden"
+                  style={{
+                    maskImage:
+                      "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+                    WebkitMaskImage:
+                      "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+                  }}
+                >
+                  <motion.div
+                    className="flex items-center gap-14 whitespace-nowrap w-max"
+                    animate={{ x: ["0%", "-50%"] }}
+                    transition={{ duration: 32, ease: "linear", repeat: Infinity }}
+                  >
+                    {[...integrations, ...integrations, ...integrations, ...integrations].map(
+                      (name, i) => (
+                        <span key={i} className="flex items-center gap-14">
+                          <span className="text-lg sm:text-xl font-medium text-brand-navy tracking-tight">
+                            {name}
+                          </span>
+                          <span className="text-brand-navy/20">·</span>
+                        </span>
+                      )
+                    )}
+                  </motion.div>
                 </div>
               </div>
             </Reveal>
@@ -365,14 +381,16 @@ function AboutPage() {
             <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-white/80">
               <span className="inline-flex items-center gap-2">
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-brand-green" />
-                $120B assets on platform
+                <CountUp prefix="$" to={120} suffix="B" /> assets on platform
               </span>
               <span className="text-white/25">·</span>
               <span>Fidelity + Schwab live API access</span>
               <span className="text-white/25">·</span>
               <span>SOC 2 Type II</span>
               <span className="text-white/25">·</span>
-              <span>Founded 2022</span>
+              <span>
+                Founded <CountUp to={2022} />
+              </span>
             </div>
           </div>
         </section>
