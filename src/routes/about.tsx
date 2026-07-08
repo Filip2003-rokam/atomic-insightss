@@ -395,55 +395,6 @@ function AboutPage() {
           </div>
         </section>
 
-        {/* LEADERSHIP */}
-        <section className="bg-surface border-b border-border">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-24 sm:py-32">
-            <Reveal>
-              <div className="text-xs uppercase tracking-[0.2em] text-brand-navy/50">
-                Leadership
-              </div>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-brand-navy leading-[1.1]">
-                Operators who lived in the gaps.
-              </h2>
-            </Reveal>
-
-            <div className="mt-14 grid md:grid-cols-2 gap-6 lg:gap-8">
-              {[
-                {
-                  name: "Lucas Babbitt",
-                  role: "Co-Founder & CEO",
-                  bio: "Former Goldman Sachs. Built Atomic to connect the systems independent firms rely on into a single money-movement workflow.",
-                  initials: "LB",
-                },
-                {
-                  name: "Nick Chen",
-                  role: "Co-Founder",
-                  bio: "Bio coming soon.",
-                  initials: "NC",
-                },
-              ].map((p, i) => (
-                <Reveal key={p.name} delay={0.1 + i * 0.05}>
-                  <div className="rounded-2xl border border-border bg-white p-6 sm:p-8 h-full">
-                    <div className="flex items-start gap-5">
-                      <div className="h-16 w-16 shrink-0 rounded-full bg-brand-navy-deep text-white flex items-center justify-center text-lg font-medium tracking-wide">
-                        {p.initials}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-lg font-semibold text-brand-navy">{p.name}</div>
-                        <div className="text-sm text-brand-navy/60 mt-0.5">{p.role}</div>
-                        <p className="mt-4 text-sm sm:text-base text-brand-navy/70 leading-relaxed">
-                          {p.bio}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* VALUES */}
         <section className="bg-white">
