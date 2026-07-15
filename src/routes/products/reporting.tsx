@@ -3,7 +3,6 @@ import { Play, Check, X } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Reveal } from "@/components/site/Reveal";
-import bakerStreet from "@/assets/baker-street.png.asset.json";
 
 export const Route = createFileRoute("/products/reporting")({
   head: () => ({
@@ -97,9 +96,7 @@ function ReportingPage() {
             </Reveal>
             <Reveal delay={0.15}>
               {/* TODO: replace placeholder product image */}
-              <div className="relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-brand-navy/[0.03] shadow-xl shadow-brand-navy/10 aspect-[4/3]">
-                <img src={bakerStreet.url} alt="Product preview" className="absolute inset-0 h-full w-full object-cover" />
-              </div>
+              <div className="relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-gray-200 shadow-xl shadow-brand-navy/10 aspect-[4/3]" />
             </Reveal>
           </div>
         </section>
@@ -164,8 +161,7 @@ function ReportingPage() {
 
             <Reveal delay={0.15}>
               {/* TODO: replace placeholder product video */}
-              <div className="mt-14 relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-brand-navy/[0.03] shadow-xl shadow-brand-navy/10 aspect-[16/9]">
-                <img src={bakerStreet.url} alt="Product video preview" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="mt-14 relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-gray-200 shadow-xl shadow-brand-navy/10 aspect-[16/9]">
                 <div className="absolute inset-0 flex items-center justify-center bg-brand-navy/20">
                   <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-brand-navy shadow-lg">
                     <Play className="h-6 w-6 ml-0.5 fill-current" />
@@ -204,9 +200,7 @@ function ReportingPage() {
 
               <Reveal delay={0.1}>
                 {/* TODO: replace placeholder people image */}
-                <div className="relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-brand-navy/[0.03] aspect-[4/5]">
-                  <img src={bakerStreet.url} alt="Atomic team" className="absolute inset-0 h-full w-full object-cover" />
-                </div>
+                <div className="relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-gray-200 aspect-[4/5]" />
               </Reveal>
 
               <Reveal delay={0.15}>
