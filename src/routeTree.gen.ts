@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProductsCapitalCallsRouteImport } from './routes/products/capital-calls'
 import { Route as ProductsBillPayRouteImport } from './routes/products/bill-pay'
 
 const AboutRoute = AboutRouteImport.update({
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsCapitalCallsRoute = ProductsCapitalCallsRouteImport.update({
+  id: '/products/capital-calls',
+  path: '/products/capital-calls',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsBillPayRoute = ProductsBillPayRouteImport.update({
   id: '/products/bill-pay',
   path: '/products/bill-pay',
@@ -33,30 +39,39 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/products/bill-pay': typeof ProductsBillPayRoute
+  '/products/capital-calls': typeof ProductsCapitalCallsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/products/bill-pay': typeof ProductsBillPayRoute
+  '/products/capital-calls': typeof ProductsCapitalCallsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/products/bill-pay': typeof ProductsBillPayRoute
+  '/products/capital-calls': typeof ProductsCapitalCallsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/products/bill-pay'
+  fullPaths: '/' | '/about' | '/products/bill-pay' | '/products/capital-calls'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/products/bill-pay'
-  id: '__root__' | '/' | '/about' | '/products/bill-pay'
+  to: '/' | '/about' | '/products/bill-pay' | '/products/capital-calls'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/products/bill-pay'
+    | '/products/capital-calls'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ProductsBillPayRoute: typeof ProductsBillPayRoute
+  ProductsCapitalCallsRoute: typeof ProductsCapitalCallsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +90,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/capital-calls': {
+      id: '/products/capital-calls'
+      path: '/products/capital-calls'
+      fullPath: '/products/capital-calls'
+      preLoaderRoute: typeof ProductsCapitalCallsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/bill-pay': {
       id: '/products/bill-pay'
       path: '/products/bill-pay'
@@ -89,6 +111,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ProductsBillPayRoute: ProductsBillPayRoute,
+  ProductsCapitalCallsRoute: ProductsCapitalCallsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
