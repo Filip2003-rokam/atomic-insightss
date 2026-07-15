@@ -4,8 +4,8 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import logo from "@/assets/atomic-logo.svg.asset.json";
 
 const products = [
-  { name: "Secured Core Money Movement", to: "/products/secured-core" },
-  { name: "Alts & Private Investment Movement", to: "/products/alts" },
+  { name: "Secured Core Money Movement", to: "/products/core-money" },
+  { name: "Alts & Private Investment Movement", to: "/products/capital-calls" },
   { name: "Comprehensive Bill Pay", to: "/products/bill-pay" },
   { name: "Cash Management", to: "/products/cash-management" },
   { name: "Reporting & Reconciliation", to: "/products/reporting" },
