@@ -1,58 +1,45 @@
-# Plan: About Us stranica
+# Plan: Bill Pay product page
 
-Nova ruta `/about` sa sadržajem iz uploadovanog `Atomic_Insights_About_Us.docx`, vizuelno inspirisana IEQ Capital about stranicom (cinematic hero sa tamnom navy overlay-om preko fotografije, tanka svetla tipografija, dosta belog prostora, tihi minimalizam).
+Nova ruta `/products/bill-pay` sa sadržajem iz uploadovanog `Atomic_Insights_Bill_Pay.docx`. Link u header dropdown-u "Products" već postoji i pokazuje na `/products/bill-pay` — trenutno vodi u prazno, ova stranica ga popunjava.
 
-## Struktura stranice
+Stil i tokeni: isti kao `about.tsx` i `Hero.tsx` (brand navy, `Reveal` scroll-in, opciono `WordReveal`/`CountUp` iz About-a za konzistentnost). Bez novih zavisnosti.
 
-1. **Hero (full-viewport, cinematic)**
-   - Fullscreen navy pozadina sa suptilnim gradient/texture overlay-om (u stilu IEQ moon shot, ali apstraktno — arhitektonski/atomic pattern, ne astronaut).
-   - Naslov u tankom serif/light sans stilu: **"Institutional Precision. Human Trust."**
-   - Bez CTA-a u hero-u — samo mirna izjava, kao na IEQ.
+## Struktura (po dokumentu)
 
-2. **Our Mission**
-   - Belа sekcija, centrirana kolona (max ~720px).
-   - Mali eyebrow "Our Mission", zatim lead paragraf ("We believe the firms trusted…") u većem svetlom stilu, pa dva prateća paragrafa manjim body tekstom.
+1. **Hero + product image**
+   - Levo: badge "Bill Pay", H1 "Bill pay built for the family, not the back office", subheadline, dva CTA (`Book a demo`, `See it in action`).
+   - Desno: product image placeholder — koristim postojeći `baker-street.png` asset (isti placeholder svuda gde dokument kaže "product image / product video", kasnije menjamo).
 
-3. **Why we built Atomic** (split layout)
-   - Levo: naslov + tekst iz sekcije "The Why" (3 paragrafa).
-   - Desno: image placeholder za Rich & Lucas portret (koristi jedan od već postojećih assets kao privremeni fill; kasnije korisnik ubaci pravu fotku).
+2. **Section 1 — The Problem**
+   - Naslov "Bill pay for a family is not accounts payable" + 2 paragrafa.
+   - Band ispod: 4 kolone (All / Multi / Full / 1) sa velikim brojem/rečju i opisom, tanka tamna/surface traka.
 
-4. **Atomic Connects the Systems You Already Use**
-   - Naslov + kratki paragraf.
-   - Ispod: reuse postojećeg integrations reda iz `SiteFooter`-a (Schwab, Fidelity, Salesforce, Addepar, Arch, Canoe, iCapital) kao statičan connectivity band. (Napomena iz dokumenta traži HTML animaciju — ostaviću placeholder komentar i jednostavan grid; ako želiš animaciju, uradićemo u sledećem koraku.)
+3. **Section 2 — How it works** (sa "product video" placeholderom)
+   - Eyebrow "How it works" + H2 "Every client payment, in one place."
+   - 4 numerisane kartice: Capture / Route / Pay / Record.
+   - Ispod: video placeholder — isti `baker-street.png` u 16:9 okviru sa play ikonicom (bez pravog videa, kasnije menjamo).
 
-5. **Proof band**
-   - Tanka tamna traka: `$120B assets on platform · Fidelity + Schwab live API access · SOC 2 Type II · Founded 2022`.
+4. **Section 3 — The Atomic Benefit** (sa "people image" placeholderom)
+   - Split: levo "The Manual Work" (crveni ✕), desno "What Atomic Delivers" (zeleni ✓), oba iz dokumenta doslovno.
+   - Iznad ili pored: people image placeholder — opet `baker-street.png`.
 
-6. **Leadership**
-   - Naslov "Leadership", ispod 2 kartice (Lucas Babbitt, Nick Chen) sa avatar placeholder-om, imenom, titulom i bio-om iz dokumenta. Nick ima "Bio coming soon" jer nije dostavljen.
-
-7. **What we stand for**
-   - 3 kolone (Everything in one place / Accuracy you can stand behind / Time returned to the work that matters), svaka sa mikro-ikonom + naslov + kratki opis iz dokumenta.
-
-8. **Closing CTA**
-   - Tamna navy sekcija: "See your systems working as one." + primarni "Book a demo" i sekundarni "Talk to our team".
+5. **Section 4 — CTA**
+   - Tamna navy sekcija: "See it against your own bill-pay process" + kratki opis + "Book a demo" dugme. Isti stil kao closing CTA na About-u.
 
 Zatim standardni `SiteFooter`.
 
-## Fajlovi koje kreiram / menjam
+## Fajlovi
 
-- **`src/routes/about.tsx`** — nova ruta, `createFileRoute("/about")`, sa svojim `head()` (title/description/og:title/og:description specifično za About). Bez og:image za sada.
-- **`src/components/site/AboutHero.tsx`** — hero komponenta (odvojena da ostane čista).
-- **`src/components/site/AboutSections.tsx`** — ostale sekcije stranice (mission, why, connectivity, proof, leadership, values, CTA) da fajl `about.tsx` ostane pregledan.
-- **`src/components/site/SiteHeader.tsx`** — dodajem link "About" da vodi na `/about` (trenutno "About" link vodi na `/`).
-- **`src/components/site/SiteFooter.tsx`** — "About" u Company koloni vodi na `/about`.
-- **`routeTree.gen.ts`** — automatski se regeneriše, ne diram ručno.
+- **`src/routes/products/bill-pay.tsx`** — nova ruta, `createFileRoute("/products/bill-pay")`, sopstveni `head()` (title, description, og:title/description, twitter card, canonical). Bez `og:image` za sada (placeholder nije prava slika).
+- **`src/routeTree.gen.ts`** — auto-regeneriše se, ne diram.
+- Header/Footer link već postoji, ne menjam.
 
-## Vizuelni pristup (inspirisano IEQ)
+## Placeholder slika
 
-- Postojeći brand tokeni: `bg-brand-navy-deep`, `text-brand-navy`, `bg-brand-green` — koristim ih, ne dodajem nove.
-- Hero: `bg-brand-navy-deep` + suptilan radial gradient + zrnasti overlay (CSS), tanki `font-weight: 300` naslov sa `tracking-wide`, uppercase varijanta odbačena (Atomic ima moderniji ton — koristim mixed case kao u ostatku sajta).
-- Sve ostale sekcije: postojeće `bg-white` / `bg-surface` smene, iste type/spacing skale kao Hero.tsx da bude konzistentno sa homepage-om.
-- Bez novih zavisnosti; motion sekcije koriste postojeći `Reveal` wrapper za scroll-in animacije.
+Svaki spot koji dokument označava kao "product image", "product video" ili "people image" renderuje `baker-street.png` (postojeći asset) u odgovarajućem okviru, sa jasnim komentarom `// TODO: replace placeholder` da lako nađeš kad budeš slao prave assete.
 
-## Šta NE radim (osim ako ne tražiš)
+## Šta NE radim
 
-- Ne pravim posebne detaljne stranice za pojedinačne founder-e (dokumenta pominje "credibility through founder pages" ali nisu dostavljeni bio-detalji za Nick-a — ostavljam za sledeći korak).
-- Ne implementiram custom "Atomic Connectivity Layer" animaciju — koristim statičan integrations band; ako pošalješ HTML animaciju iz dokumenta, ubaciću je posle.
-- Ne diram homepage, Hero, FeatureSuite ni bilo šta drugo van header/footer linkova.
+- Ne pravim realnu video komponentu — samo statični placeholder frame.
+- Ne diram druge stranice, About, homepage, ni druge product rute.
+- Ne dodajem nove brand tokene ni nove pakete.
