@@ -95,9 +95,7 @@ function CapitalCallsPage() {
             </Reveal>
             <Reveal delay={0.15}>
               {/* TODO: replace placeholder product image */}
-              <div className="relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-gray-200 shadow-xl shadow-brand-navy/10 aspect-[4/3]">
-                {/* TODO: replace placeholder product image */}
-              </div>
+              <div className="relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-gray-200 shadow-xl shadow-brand-navy/10 aspect-[4/3]" />
             </Reveal>
           </div>
         </section>
@@ -165,7 +163,6 @@ function CapitalCallsPage() {
             <Reveal delay={0.15}>
               {/* TODO: replace placeholder product video */}
               <div className="mt-14 relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-gray-200 shadow-xl shadow-brand-navy/10 aspect-[16/9]">
-                {/* TODO: replace placeholder product video */}
                 <div className="absolute inset-0 flex items-center justify-center bg-brand-navy/20">
                   <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-brand-navy shadow-lg">
                     <Play className="h-6 w-6 ml-0.5 fill-current" />
@@ -204,9 +201,7 @@ function CapitalCallsPage() {
 
               <Reveal delay={0.1}>
                 {/* TODO: replace placeholder people image */}
-                <div className="relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-gray-200 aspect-[4/5]">
-                {/* TODO: replace placeholder people image */}
-              </div>
+                <div className="relative rounded-2xl overflow-hidden border border-brand-navy/10 bg-gray-200 aspect-[4/5]" />
               </Reveal>
 
               <Reveal delay={0.15}>
