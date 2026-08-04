@@ -3,9 +3,14 @@ import { motion, useScroll, useTransform, useReducedMotion, type MotionValue } f
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import mark from "@/assets/atomic-mark.svg.asset.json";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+  const isMobile = useIsMobile();
+  const showVideo = !reduce && !isMobile;
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
@@ -14,27 +19,47 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[auto] lg:min-h-[90vh] flex-col overflow-hidden bg-white"
+      className="relative flex min-h-[auto] lg:min-h-[92vh] flex-col overflow-hidden bg-brand-navy-deep"
     >
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-full -z-0"
-        style={{
-          background:
-            "radial-gradient(1200px 500px at 20% 0%, rgba(111,190,68,0.12), transparent 60%), radial-gradient(900px 500px at 85% 0%, rgba(47,128,194,0.15), transparent 60%), linear-gradient(180deg, #F5F9FC 0%, #FFFFFF 100%)",
-        }}
-      />
+      {/* background video */}
+      <div aria-hidden className="absolute inset-0 -z-0 overflow-hidden">
+        {showVideo ? (
+          <video
+            className="h-full w-full object-cover"
+            src="/assets/hero.mp4"
+            poster="/assets/hero-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          >
+            <source src="/assets/hero.webm" type="video/webm" />
+            <source src="/assets/hero.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src="/assets/hero-poster.jpg"
+            alt=""
+            className="h-full w-full object-cover"
+          />
+        )}
+        {/* readability overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-navy-deep/92 via-brand-navy-deep/70 to-brand-navy-deep/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-navy-deep/70 via-transparent to-brand-navy-deep/80" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
+      </div>
 
-      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 lg:py-28">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-12 items-center w-full">
           <div className="lg:col-span-6">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full border border-brand-navy/10 bg-white/70 backdrop-blur px-3 py-1 text-xs font-medium text-brand-navy/80"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur px-3 py-1 text-xs font-medium text-white/90"
             >
-              <img src={mark.url} alt="" className="h-3.5 w-3.5" />
+              <img src={mark.url} alt="" className="h-3.5 w-3.5 brightness-0 invert" />
               Built for RIAs & family offices
             </motion.div>
 
@@ -42,7 +67,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
-              className="mt-5 text-[2rem] sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-brand-navy tracking-tight"
+              className="mt-5 text-[2rem] sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-white tracking-tight [text-shadow:0_2px_24px_rgba(7,24,56,0.45)]"
             >
               More clients, more wires, more capital calls.{" "}
               <span className="brand-gradient-text">One platform to run them.</span>
@@ -52,7 +77,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="mt-6 text-base sm:text-lg text-brand-navy/70 max-w-xl leading-relaxed"
+              className="mt-6 text-base sm:text-lg text-white/75 max-w-xl leading-relaxed"
             >
               At most RIAs and family offices, money movement is still manual. Atomic runs it
               end-to-end with every control intact. Faster, more accurate, and idle cash put to work.
@@ -66,19 +91,19 @@ export function Hero() {
             >
               <Link
                 to="/"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-navy px-5 py-3 text-sm font-medium text-white hover:bg-brand-navy-deep transition-colors"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-brand-navy hover:bg-white/90 transition-colors"
               >
                 Book a demo <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href="#demo"
-                className="inline-flex items-center gap-2 rounded-full border border-brand-navy/15 bg-white px-5 py-3 text-sm font-medium text-brand-navy hover:bg-surface transition-colors"
+                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur px-5 py-3 text-sm font-medium text-white hover:bg-white/20 transition-colors"
               >
                 See the platform
               </a>
             </motion.div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-brand-navy/60">
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-white/70">
               <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> SOC 2 Type II</span>
               <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> Direct custodian APIs</span>
               <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> Maker-checker approvals</span>
@@ -93,6 +118,7 @@ export function Hero() {
     </section>
   );
 }
+
 
 function HeroDashboard({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
   const reduce = useReducedMotion();
