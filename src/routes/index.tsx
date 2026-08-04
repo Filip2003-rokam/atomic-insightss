@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { Hero } from "@/components/site/Hero";
+import { Hero, HeroShowcase } from "@/components/site/Hero";
 import { StatsBanner } from "@/components/site/StatsBanner";
 import { ProductIntro } from "@/components/site/ProductIntro";
 import { FeatureSuite } from "@/components/site/FeatureSuite";
@@ -18,6 +18,7 @@ function LandingPage() {
       <SiteHeader />
       <main>
         <Hero />
+        <HeroShowcase />
         <StatsBanner />
         <ProductIntro />
         <FeatureSuite />

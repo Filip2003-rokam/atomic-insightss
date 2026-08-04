@@ -11,11 +11,6 @@ export function Hero() {
   const isMobile = useIsMobile();
   const showVideo = !reduce && !isMobile;
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
   return (
     <section
       ref={sectionRef}
@@ -51,9 +46,9 @@ export function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </div>
 
-      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 lg:py-28">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-12 items-center w-full">
-          <div className="lg:col-span-6">
+      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-20 sm:py-24 lg:py-32">
+        <div className="grid lg:grid-cols-12 w-full">
+          <div className="lg:col-span-8">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -110,10 +105,37 @@ export function Hero() {
               <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> Maker-checker approvals</span>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-          <div className="lg:col-span-6 min-w-0">
-            <HeroDashboard scrollYProgress={scrollYProgress} />
-          </div>
+export function HeroShowcase() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  return (
+    <section ref={sectionRef} className="relative bg-white py-20 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-blue">
+            The platform
+          </p>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-tight text-brand-navy">
+            Every wire, capital call, and cash position in one view.
+          </h2>
+          <p className="mt-4 text-base text-brand-navy/65 leading-relaxed">
+            A live look at how Atomic runs money movement end-to-end, with controls and audit trail
+            built in.
+          </p>
+        </div>
+
+        <div className="mt-16 sm:mt-20 mx-auto max-w-4xl min-w-0">
+          <HeroDashboard scrollYProgress={scrollYProgress} />
         </div>
       </div>
     </section>
