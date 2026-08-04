@@ -25,7 +25,8 @@ export function Hero() {
       <div aria-hidden className="absolute inset-0 -z-0 overflow-hidden">
         {showVideo ? (
           <video
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover scale-105 blur-[1px]"
+
             src="/assets/hero.mp4"
             poster="/assets/hero-poster.jpg"
             autoPlay
@@ -45,7 +46,7 @@ export function Hero() {
           />
         )}
         {/* readability overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-navy-deep/92 via-brand-navy-deep/70 to-brand-navy-deep/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-navy-deep/95 via-brand-navy-deep/80 to-brand-navy-deep/55" />
         <div className="absolute inset-0 bg-gradient-to-b from-brand-navy-deep/70 via-transparent to-brand-navy-deep/80" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </div>
