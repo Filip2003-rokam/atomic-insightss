@@ -94,7 +94,7 @@ export function Hero() {
               Built for RIAs & family offices
             </motion.div>
 
-            <div className="mt-5 min-h-[260px] sm:min-h-[280px] lg:min-h-[300px]">
+            <div className="mt-5 min-h-[160px] sm:min-h-[180px] lg:min-h-[200px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
@@ -119,7 +119,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.25 }}
-              className="mt-8 flex flex-wrap items-center gap-3"
+              className="mt-3 flex flex-wrap items-center gap-3"
             >
               <Link
                 to="/"
