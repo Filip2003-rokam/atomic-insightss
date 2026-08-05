@@ -69,16 +69,6 @@ export function Hero() {
               <span className="brand-gradient-text">One platform to run them.</span>
             </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="mt-6 text-base sm:text-lg text-white/75 max-w-xl leading-relaxed"
-            >
-              At most RIAs and family offices, money movement is still manual. Atomic runs it
-              end-to-end with every control intact. Faster, more accurate, and idle cash put to work.
-            </motion.p>
-
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
