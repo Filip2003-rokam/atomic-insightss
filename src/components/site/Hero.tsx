@@ -89,11 +89,6 @@ export function Hero() {
               </a>
             </motion.div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-white/70">
-              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> SOC 2 Type II</span>
-              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> Direct custodian APIs</span>
-              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-brand-green" /> Maker-checker approvals</span>
-            </div>
           </div>
         </div>
       </div>
