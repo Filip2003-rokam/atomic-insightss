@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, type MotionValue } from "framer-motion";
-import { Check } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, Check } from "lucide-react";
 import mark from "@/assets/atomic-mark.svg.asset.json";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -13,7 +14,7 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-[70vh] min-h-[420px] flex-col overflow-hidden bg-brand-navy-deep"
+      className="relative flex min-h-[auto] lg:min-h-[92vh] flex-col overflow-hidden bg-brand-navy-deep"
     >
       {/* background video */}
       <div aria-hidden className="absolute inset-0 -z-0 overflow-hidden">
@@ -43,6 +44,53 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-navy-deep/75 via-brand-navy-deep/45 to-brand-navy-deep/20" />
         <div className="absolute inset-0 bg-gradient-to-b from-brand-navy-deep/40 via-transparent to-brand-navy-deep/55" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
+      </div>
+
+      <div className="relative flex flex-1 items-center w-full mx-auto max-w-7xl px-4 sm:px-6 py-20 sm:py-24 lg:py-32">
+        <div className="grid lg:grid-cols-12 w-full">
+          <div className="lg:col-span-8">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur px-3 py-1 text-xs font-medium text-white/90"
+            >
+              <img src={mark.url} alt="" className="h-3.5 w-3.5 brightness-0 invert" />
+              Built for RIAs & family offices
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="mt-5 text-[2rem] sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-white tracking-tight [text-shadow:0_2px_24px_rgba(7,24,56,0.45)]"
+            >
+              More clients, more wires, more capital calls.{" "}
+              <span className="brand-gradient-text">One platform to run them.</span>
+            </motion.h1>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="mt-8 flex flex-wrap items-center gap-3"
+            >
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-brand-navy hover:bg-white/90 transition-colors"
+              >
+                Book a demo <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a
+                href="#demo"
+                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur px-5 py-3 text-sm font-medium text-white hover:bg-white/20 transition-colors"
+              >
+                See the platform
+              </a>
+            </motion.div>
+
+          </div>
+        </div>
       </div>
     </section>
   );
