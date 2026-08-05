@@ -1,5 +1,7 @@
 import { useRef } from "react";
-import { useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion, type MotionValue } from "framer-motion";
+import { Check } from "lucide-react";
+import mark from "@/assets/atomic-mark.svg.asset.json";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Hero() {
