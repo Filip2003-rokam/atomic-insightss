@@ -46,7 +46,7 @@ export function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </div>
 
-      <div className="relative flex flex-1 items-start w-full mx-auto max-w-7xl px-4 sm:px-6 pt-56 sm:pt-72 lg:pt-80 pb-20 sm:pb-24 lg:pb-32">
+      <div className="relative flex flex-1 items-start w-full mx-auto max-w-7xl px-4 sm:px-6 pt-48 sm:pt-60 lg:pt-68 pb-20 sm:pb-24 lg:pb-32">
         <div className="grid lg:grid-cols-12 w-full">
           <div className="lg:col-span-8">
             <motion.div
