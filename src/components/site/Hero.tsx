@@ -1,15 +1,49 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion, type MotionValue } from "framer-motion";
+import { useRef, useState, useEffect, type ReactNode } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion, type MotionValue } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import mark from "@/assets/atomic-mark.svg.asset.json";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+// HERO_SEGMENTS drives the headline/subline shown over the hero video.
+// Each segment becomes active when its `start` time (in seconds) is reached.
+// The active segment is the last one whose `start` is <= the video's currentTime.
+// Because the video loops, the text automatically returns to segment 0 at 0s.
+// To add or change a segment, append or edit an object with `start`, `headline`, and `subline`.
+// `headline` and `subline` can be strings or ReactNode (e.g. to use brand-gradient-text).
+const HERO_SEGMENTS: { start: number; headline: ReactNode; subline: ReactNode }[] = [
+  { start: 0, headline: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", subline: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+  { start: 4, headline: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.", subline: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore." },
+  { start: 9, headline: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.", subline: "Deserunt mollit anim id est laborum." },
+];
+
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
   const isMobile = useIsMobile();
   const showVideo = !reduce && !isMobile;
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (!showVideo || !videoRef.current) return;
+    const video = videoRef.current;
+
+    const handleTimeUpdate = () => {
+      const time = video.currentTime;
+      let idx = 0;
+      for (let i = 0; i < HERO_SEGMENTS.length; i++) {
+        if (time >= HERO_SEGMENTS[i].start) idx = i;
+        else break;
+      }
+      setActiveIndex(idx);
+    };
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
+  }, [showVideo]);
+
+  const current = HERO_SEGMENTS[activeIndex];
 
   return (
     <section
@@ -20,6 +54,7 @@ export function Hero() {
       <div aria-hidden className="absolute inset-0 -z-0 overflow-hidden">
         {showVideo ? (
           <video
+            ref={videoRef}
             className="h-full w-full object-cover scale-105"
 
             src="/assets/hero.mp4"
@@ -59,15 +94,26 @@ export function Hero() {
               Built for RIAs & family offices
             </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.05 }}
-              className="mt-5 text-[2rem] sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-white tracking-tight [text-shadow:0_2px_24px_rgba(7,24,56,0.45)]"
-            >
-              More clients, more wires, more capital calls.{" "}
-              <span className="brand-gradient-text">One platform to run them.</span>
-            </motion.h1>
+            <div className="mt-5 min-h-[260px] sm:min-h-[280px] lg:min-h-[300px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h1 className="text-[2rem] sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-white tracking-tight [text-shadow:0_2px_24px_rgba(7,24,56,0.45)]">
+                    {current.headline}
+                  </h1>
+                  {current.subline && (
+                    <p className="mt-4 text-lg sm:text-xl text-white/80 leading-relaxed">
+                      {current.subline}
+                    </p>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
