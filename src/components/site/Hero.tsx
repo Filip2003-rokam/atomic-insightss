@@ -103,11 +103,11 @@ export function Hero() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h1 className="text-[1.75rem] sm:text-[2.25rem] lg:text-[2.75rem] font-semibold leading-[1.08] text-white tracking-tight [text-shadow:0_2px_24px_rgba(7,24,56,0.45)] max-w-[18ch] sm:max-w-[22ch] lg:max-w-[26ch]">
+                  <h1 className="text-[1.5rem] sm:text-[1.875rem] lg:text-[2.375rem] font-semibold leading-[1.1] text-white tracking-tight [text-shadow:0_2px_24px_rgba(7,24,56,0.45)] max-w-[20ch] sm:max-w-[28ch] lg:max-w-[32ch]">
                     {current.headline}
                   </h1>
                   {current.subline && (
-                    <p className="mt-4 text-base sm:text-lg text-white/80 leading-relaxed max-w-[34ch] sm:max-w-[42ch] lg:max-w-[50ch]">
+                    <p className="mt-4 text-base sm:text-lg text-white/80 leading-relaxed max-w-[34ch] sm:max-w-[46ch] lg:max-w-[54ch]">
                       {current.subline}
                     </p>
                   )}
