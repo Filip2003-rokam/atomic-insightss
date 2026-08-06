@@ -18,26 +18,6 @@ const featured = {
   note: "Former Goldman Sachs & Jordan Parks",
 };
 
-const testimonials = [
-  {
-    quote:
-      "We were running the whole firm's cash management out of a spreadsheet and I could see exactly where that breaks as we grow. Atomic gives us the forecasting and execution in one place. It pays for itself.",
-    name: "Reed",
-    role: "Baker Street Advisors",
-  },
-  {
-    quote:
-      "We process capital calls at a volume most firms never see. Instead of hundreds of individual wires, Atomic lets us do a bulk submission per fund. That's the efficiency we need to hit deadlines and raise cash on time.",
-    name: "Jamal DeAllie",
-    role: "Associate Director, IEQ Capital",
-  },
-  {
-    quote:
-      "The bulk capital-call workflow is a huge value add for a family office like ours. It links with our data, and what used to be a manual slog is now a few boxes and an amount. It scaled with us exactly when we needed it to.",
-    name: "Hayley Gilbert",
-    role: "Operations, Ohana Advisors",
-  },
-];
 
 export function TrustSocial() {
   return (
