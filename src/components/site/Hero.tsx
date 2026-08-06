@@ -94,7 +94,7 @@ export function Hero() {
               Built for RIAs & family offices
             </motion.div>
 
-            <div className="mt-5 min-h-[160px] sm:min-h-[180px] lg:min-h-[200px]">
+            <div className="mt-5 min-h-[150px] sm:min-h-[170px] lg:min-h-[190px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
@@ -103,11 +103,11 @@ export function Hero() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h1 className="text-[2rem] sm:text-5xl lg:text-6xl font-semibold leading-[1.05] text-white tracking-tight [text-shadow:0_2px_24px_rgba(7,24,56,0.45)]">
+                  <h1 className="text-[1.75rem] sm:text-[2.25rem] lg:text-[2.75rem] font-semibold leading-[1.08] text-white tracking-tight [text-shadow:0_2px_24px_rgba(7,24,56,0.45)] max-w-[18ch] sm:max-w-[22ch] lg:max-w-[26ch]">
                     {current.headline}
                   </h1>
                   {current.subline && (
-                    <p className="mt-4 text-lg sm:text-xl text-white/80 leading-relaxed">
+                    <p className="mt-4 text-base sm:text-lg text-white/80 leading-relaxed max-w-[34ch] sm:max-w-[42ch] lg:max-w-[50ch]">
                       {current.subline}
                     </p>
                   )}
